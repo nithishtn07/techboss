@@ -4,7 +4,6 @@ import { Activity } from 'lucide-react';
 export default function AICoreVisual() {
   const canvasRef = useRef(null);
   const [activeMode, setActiveMode] = useState('REASONING');
-  const [tokensPerSec, setTokensPerSec] = useState(148);
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -111,14 +110,8 @@ export default function AICoreVisual() {
 
     render();
 
-    // Subtle random fluctuation for realistic telemetry
-    const interval = setInterval(() => {
-      setTokensPerSec(Math.floor(140 + Math.random() * 25));
-    }, 1800);
-
     return () => {
       cancelAnimationFrame(animationId);
-      clearInterval(interval);
     };
   }, []);
 
@@ -135,12 +128,12 @@ export default function AICoreVisual() {
             <span className="relative inline-flex rounded-full h-2 w-2 bg-cyan-500" />
           </span>
           <span className="text-xs font-tech font-bold tracking-widest text-[#00e5ff] uppercase">
-            AI CORE ENGINE v3.4
+            AI RUNTIME ARCHITECTURE
           </span>
         </div>
         <div className="flex items-center gap-1.5 text-[11px] font-mono text-slate-400">
           <Activity className="w-3.5 h-3.5 text-emerald-400" />
-          <span>{tokensPerSec} TOKENS/SEC</span>
+          <span>ON-DEVICE NPU</span>
         </div>
       </div>
 

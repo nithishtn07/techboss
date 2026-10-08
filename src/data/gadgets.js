@@ -12,6 +12,13 @@ export const GADGETS_DATA = [
     priceEst: "₹1,29,999",
     verdict: "The absolute Android king with Snapdragon 8 Elite, anti-reflective Gorilla Armor glass, and S-Pen.",
     featured: true,
+    scores: {
+      display: 98,
+      processor: 97,
+      camera: 96,
+      battery: 91,
+      charging: 78,
+    },
     specs: {
       display: "6.8\" Dynamic AMOLED 2X, 120Hz LTPO, 2600 nits, QHD+",
       processor: "Qualcomm Snapdragon 8 Elite for Galaxy (3nm)",
@@ -19,9 +26,10 @@ export const GADGETS_DATA = [
       storage: "256GB / 512GB / 1TB UFS 4.0",
       camera: "200MP Main + 50MP Ultra-wide + 50MP 5x Telephoto + 10MP 3x Telephoto",
       battery: "5000 mAh Li-Ion",
-      weight: "219 g",
+      fastCharging: "45W Wired, 15W Wireless",
+      connectivity: "Wi-Fi 7, Bluetooth 5.4, 5G Dual SA/NSA, Ultra Wideband (UWB)",
       os: "One UI 7 (Android 15)",
-      fastCharging: "45W Wired, 15W Wireless"
+      weight: "219 g"
     }
   },
   {
@@ -34,16 +42,24 @@ export const GADGETS_DATA = [
     priceEst: "₹1,44,900",
     verdict: "Class-leading 4K 120fps Dolby Vision video recording, dedicated Camera Control button, and titanium build.",
     featured: true,
+    scores: {
+      display: 97,
+      processor: 98,
+      camera: 97,
+      battery: 93,
+      charging: 72,
+    },
     specs: {
       display: "6.9\" Super Retina XDR OLED, 120Hz ProMotion, 2000 nits",
-      processor: "Apple A18 Pro (3nm)",
+      processor: "Apple A18 Pro (3nm 6-core CPU)",
       ram: "8GB Unified Memory",
       storage: "256GB / 512GB / 1TB NVMe",
       camera: "48MP Fusion + 48MP Ultra-wide + 12MP 5x Tetraprism Telephoto",
       battery: "4685 mAh",
-      weight: "227 g",
+      fastCharging: "30W Wired, 25W MagSafe Wireless",
+      connectivity: "Wi-Fi 7, Bluetooth 5.3, 5G Sub-6/mmWave, 2nd-Gen UWB, Thread",
       os: "iOS 18 (Apple Intelligence)",
-      fastCharging: "30W Wired, 25W MagSafe"
+      weight: "227 g"
     }
   },
   {
@@ -56,6 +72,13 @@ export const GADGETS_DATA = [
     priceEst: "₹69,999",
     verdict: "Unmatched battery endurance with massive 6000mAh silicon-carbon cell and 100W SuperVOOC charging.",
     featured: true,
+    scores: {
+      display: 96,
+      processor: 96,
+      camera: 91,
+      battery: 98,
+      charging: 99,
+    },
     specs: {
       display: "6.82\" 2K BOE X2 Oriental OLED, 120Hz LTPO, 4500 nits peak",
       processor: "Qualcomm Snapdragon 8 Elite (3nm)",
@@ -63,9 +86,10 @@ export const GADGETS_DATA = [
       storage: "256GB / 512GB / 1TB UFS 4.0",
       camera: "50MP Sony LYT-808 + 50MP Ultra-wide + 50MP 3x Periscope",
       battery: "6000 mAh Glacier Battery",
-      weight: "213 g",
+      fastCharging: "100W Wired SuperVOOC, 50W AIRVOOC Wireless",
+      connectivity: "Wi-Fi 7, Bluetooth 5.4, 5G Dual SIM, NFC, IR Blaster",
       os: "OxygenOS 15 (Android 15)",
-      fastCharging: "100W Wired, 50W AIRVOOC Wireless"
+      weight: "213 g"
     }
   },
   {
@@ -78,6 +102,13 @@ export const GADGETS_DATA = [
     priceEst: "₹24,999",
     verdict: "Unique transparent aesthetic, clean bloat-free Nothing OS, and solid dual 50MP cameras for the price.",
     featured: false,
+    scores: {
+      display: 86,
+      processor: 82,
+      camera: 84,
+      battery: 89,
+      charging: 82,
+    },
     specs: {
       display: "6.7\" Flexible AMOLED, 120Hz, 1300 nits peak, FHD+",
       processor: "MediaTek Dimensity 7350 Pro 5G (4nm)",
@@ -85,9 +116,10 @@ export const GADGETS_DATA = [
       storage: "256GB UFS 2.2",
       camera: "50MP Main (OIS) + 50MP Ultra-wide | 50MP Front",
       battery: "5000 mAh",
-      weight: "190 g",
+      fastCharging: "50W Fast Charging",
+      connectivity: "Wi-Fi 6, Bluetooth 5.3, 5G Dual SA/NSA, NFC",
       os: "Nothing OS 2.6 (Android 14)",
-      fastCharging: "50W Fast Charging"
+      weight: "190 g"
     }
   },
   {
@@ -100,16 +132,24 @@ export const GADGETS_DATA = [
     priceEst: "₹1,09,999",
     verdict: "The purest Android experience with unmatched computational photography and Gemini Advanced built-in.",
     featured: false,
+    scores: {
+      display: 96,
+      processor: 89,
+      camera: 98,
+      battery: 87,
+      charging: 70,
+    },
     specs: {
       display: "6.3\" Super Actua LTPO OLED, 120Hz, 3000 nits peak",
-      processor: "Google Tensor G4 with Titan M2",
+      processor: "Google Tensor G4 with Titan M2 security coprocessor",
       ram: "16GB LPDDR5X",
       storage: "128GB / 256GB / 512GB / 1TB",
       camera: "50MP Octa PD Main + 48MP Quad PD Ultra-wide + 48MP 5x Telephoto",
       battery: "4700 mAh",
-      weight: "199 g",
-      os: "Clean Android 15 (7 Years Updates)",
-      fastCharging: "27W Wired, 21W Wireless"
+      fastCharging: "27W Wired, 21W Wireless",
+      connectivity: "Wi-Fi 7, Bluetooth 5.3, 5G Sub-6, UWB, Satellite SOS",
+      os: "Clean Android 15 (7 Years OS Updates)",
+      weight: "199 g"
     }
   },
   {
@@ -122,6 +162,13 @@ export const GADGETS_DATA = [
     priceEst: "₹94,999",
     verdict: "Hardcore mobile gaming powerhouse with 185Hz display, AniMe Vision mini-LED rear matrix, and active cooling.",
     featured: false,
+    scores: {
+      display: 97,
+      processor: 98,
+      camera: 86,
+      battery: 96,
+      charging: 91,
+    },
     specs: {
       display: "6.78\" FHD+ Samsung E6 AMOLED, 185Hz Refresh, 2500 nits",
       processor: "Qualcomm Snapdragon 8 Elite (3nm)",
@@ -129,9 +176,10 @@ export const GADGETS_DATA = [
       storage: "512GB / 1TB UFS 4.0",
       camera: "50MP Sony Lytia 700 + 13MP Ultra-wide + 32MP 3x Telephoto",
       battery: "5800 mAh Quick Charge 5.0",
-      weight: "227 g",
+      fastCharging: "65W HyperCharge, 15W Qi Wireless",
+      connectivity: "Wi-Fi 7, Bluetooth 5.4, 5G Dual Nano, Dual Side/Bottom USB-C",
       os: "ROG UI (Android 15)",
-      fastCharging: "65W HyperCharge, 15W Qi Wireless"
+      weight: "227 g"
     }
   },
   {
@@ -144,6 +192,13 @@ export const GADGETS_DATA = [
     priceEst: "₹3,49,900",
     verdict: "Unprecedented rendering speeds for 8K video timelines in DaVinci Resolve and silent thermal efficiency.",
     featured: true,
+    scores: {
+      display: 99,
+      processor: 99,
+      camera: 88,
+      battery: 98,
+      charging: 92,
+    },
     specs: {
       display: "16.2\" Liquid Retina XDR, 1600 nits peak, 120Hz ProMotion",
       processor: "Apple M4 Max (16-core CPU, 40-core GPU, 16-core Neural Engine)",
@@ -151,14 +206,15 @@ export const GADGETS_DATA = [
       storage: "1TB / 2TB / 4TB / 8TB SSD (Up to 7.4GB/s)",
       camera: "12MP Center Stage Camera with Desk View",
       battery: "100Wh (Up to 24 hours battery life)",
-      weight: "2.14 kg",
+      fastCharging: "140W USB-C MagSafe 3",
+      connectivity: "Wi-Fi 6E, Bluetooth 5.3, 3x Thunderbolt 5, HDMI 2.1, SDXC Slot",
       os: "macOS Sequoia",
-      fastCharging: "140W USB-C MagSafe 3"
+      weight: "2.14 kg"
     }
   },
   {
     id: "rog-zephyrus-g16",
-    name: "ASUS ROG Zephyrus G16 (2025)",
+    name: "ASUS ROG Zephyrus G16",
     category: "Laptops",
     tier: "Gaming",
     image: "https://images.unsplash.com/photo-1603302576837-37561b2e2302?auto=format&fit=crop&w=800&q=80",
@@ -166,6 +222,13 @@ export const GADGETS_DATA = [
     priceEst: "₹2,19,990",
     verdict: "Sleek aluminum CNC unibody with 2.5K 240Hz OLED and RTX 4080 in an ultra-portable chassis.",
     featured: false,
+    scores: {
+      display: 97,
+      processor: 95,
+      camera: 82,
+      battery: 84,
+      charging: 90,
+    },
     specs: {
       display: "16\" 2.5K (2560x1600) ROG Nebula OLED, 240Hz 0.2ms, G-SYNC",
       processor: "Intel Core Ultra 9 185H / AMD Ryzen AI 9 HX 370",
@@ -173,9 +236,10 @@ export const GADGETS_DATA = [
       storage: "1TB / 2TB PCIe 4.0 NVMe M.2",
       camera: "1080p FHD IR Camera with Windows Hello",
       battery: "90Wh (Up to 10 hours productivity)",
-      weight: "1.85 kg",
+      fastCharging: "240W AC Adapter, 100W USB-C PD",
+      connectivity: "Wi-Fi 7, Bluetooth 5.4, Thunderbolt 4, HDMI 2.1, SD Express 7.0",
       os: "Windows 11 Home",
-      fastCharging: "240W AC Adapter, 100W USB-C PD"
+      weight: "1.85 kg"
     }
   },
   {
@@ -188,6 +252,13 @@ export const GADGETS_DATA = [
     priceEst: "₹1,74,990",
     verdict: "Futuristic zero-lattice keyboard, seamless glass haptic trackpad, and vivid 3.2K OLED touchscreen.",
     featured: false,
+    scores: {
+      display: 94,
+      processor: 90,
+      camera: 84,
+      battery: 86,
+      charging: 80,
+    },
     specs: {
       display: "14.5\" 3.2K (3200x2000) OLED Touch, 120Hz, 400 nits",
       processor: "Intel Core Ultra 7 155H (16 Cores, 22 Threads)",
@@ -195,9 +266,70 @@ export const GADGETS_DATA = [
       storage: "512GB / 1TB PCIe 4.0 SSD",
       camera: "1080p Webcam with dual digital mic array",
       battery: "69.5Wh (Up to 12 hours web browsing)",
-      weight: "1.68 kg",
+      fastCharging: "60W / 100W USB-C Type-C",
+      connectivity: "Wi-Fi 7, Bluetooth 5.4, 3x Thunderbolt 4, MicroSD XC v6.0",
       os: "Windows 11 Home",
-      fastCharging: "60W / 100W USB-C Type-C"
+      weight: "1.68 kg"
+    }
+  },
+  {
+    id: "sony-wh1000xm5",
+    name: "Sony WH-1000XM5",
+    category: "Gadgets",
+    tier: "Audio",
+    image: "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&w=800&q=80",
+    rating: "4.8 / 5.0",
+    priceEst: "₹26,990",
+    verdict: "Industry-standard active noise cancellation with 30-hour battery life and multi-point Bluetooth.",
+    featured: false,
+    scores: {
+      display: 70,
+      processor: 88,
+      camera: 85,
+      battery: 95,
+      charging: 94,
+    },
+    specs: {
+      display: "N/A (Over-Ear Wireless)",
+      processor: "Dual Processor V1 + HD QN1 Noise Cancelling",
+      ram: "Embedded",
+      storage: "N/A",
+      camera: "4 Beamforming Mics + AI Noise Reduction",
+      battery: "30 Hours (ANC ON) / 40 Hours (ANC OFF)",
+      fastCharging: "3 Min Charge = 3 Hours Playback (USB-PD)",
+      connectivity: "Bluetooth 5.2, LDAC, AAC, SBC, 3.5mm Jack",
+      os: "Sony Headphones Connect App (iOS / Android)",
+      weight: "250 g"
+    }
+  },
+  {
+    id: "apple-watch-ultra-2",
+    name: "Apple Watch Ultra 2",
+    category: "Gadgets",
+    tier: "Wearables",
+    image: "https://images.unsplash.com/photo-1579586337278-3befd40fd17a?auto=format&fit=crop&w=800&q=80",
+    rating: "4.9 / 5.0",
+    priceEst: "₹89,900",
+    verdict: "Rugged aerospace titanium casing, 3000 nits display, dual-frequency precision GPS, and 100m water resistance.",
+    featured: false,
+    scores: {
+      display: 98,
+      processor: 92,
+      camera: 70,
+      battery: 88,
+      charging: 82,
+    },
+    specs: {
+      display: "49mm Always-On Retina LTPO OLED, 3000 nits peak",
+      processor: "Apple S9 SiP (4-core Neural Engine)",
+      ram: "Unified SiP",
+      storage: "64GB Onboard",
+      camera: "N/A (Wearable Sensor Array)",
+      battery: "Up to 36 Hours Normal / 72 Hours Low Power",
+      fastCharging: "Fast Magnetic Charger to USB-C",
+      connectivity: "LTE Cellular, Wi-Fi 4, Bluetooth 5.3, 2nd-gen UWB",
+      os: "watchOS 11",
+      weight: "61.4 g"
     }
   }
 ];

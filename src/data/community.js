@@ -90,8 +90,8 @@ export const TIMELINE_EVENTS = [
   },
   {
     year: "Phase 4: Community",
-    title: "Tech Boss Hub & Direct Interaction",
-    subtitle: "Empowering Over 1 Million Tamil Tech Enthusiasts",
+    title: "Tech Boss Hub & Interactive Platform",
+    subtitle: "Direct Community Q&As and Digital Hub",
     description: "A connected digital ecosystem bringing verified buying guides, interactive comparison tools, and direct tech Q&As to our audience.",
     badge: "Present & Beyond"
   }

@@ -224,15 +224,15 @@ export default function Hero3DPhone() {
         const elapsedTime = clock.getElapsedTime();
 
         // Smooth damping towards mouse position
-        mousePos.current.x += (mousePos.current.targetX - mousePos.current.x) * 0.05;
-        mousePos.current.y += (mousePos.current.targetY - mousePos.current.y) * 0.05;
+        mousePos.current.x += (mousePos.current.targetX - mousePos.current.x) * 0.04;
+        mousePos.current.y += (mousePos.current.targetY - mousePos.current.y) * 0.04;
 
         // Subtle floating / bobbing effect
-        phoneGroup.position.y = Math.sin(elapsedTime * 1.2) * 0.14;
+        phoneGroup.position.y = Math.sin(elapsedTime * 0.9) * 0.1;
 
-        // Base slow rotation combined with mouse interaction
-        phoneGroup.rotation.y = -0.35 + Math.sin(elapsedTime * 0.6) * 0.15 + mousePos.current.x;
-        phoneGroup.rotation.x = 0.15 + Math.cos(elapsedTime * 0.8) * 0.08 - mousePos.current.y;
+        // Base slow rotation combined with gentle mouse interaction
+        phoneGroup.rotation.y = -0.3 + Math.sin(elapsedTime * 0.45) * 0.1 + mousePos.current.x * 0.5;
+        phoneGroup.rotation.x = 0.12 + Math.cos(elapsedTime * 0.5) * 0.05 - mousePos.current.y * 0.5;
 
         renderer.render(scene, camera);
       };
@@ -255,10 +255,10 @@ export default function Hero3DPhone() {
   }, []);
 
   return (
-    <div className="relative w-full max-w-[500px] h-[520px] mx-auto flex items-center justify-center">
+    <div className="relative w-full max-w-[440px] h-[460px] sm:h-[520px] mx-auto flex items-center justify-center overflow-visible">
       {/* Soft Glow Radial Background */}
       <div className="absolute inset-0 bg-radial from-[#00e5ff]/15 via-transparent to-transparent blur-3xl pointer-events-none" />
-      <div className="absolute w-72 h-72 rounded-full bg-[#8b5cf6]/10 blur-[80px] pointer-events-none -bottom-10 right-0" />
+      <div className="absolute w-60 sm:w-72 h-60 sm:h-72 rounded-full bg-[#8b5cf6]/10 blur-[80px] pointer-events-none -bottom-8 right-0" />
 
       {/* 3D Canvas Mount Point */}
       {!webGLFailed ? (
@@ -269,51 +269,51 @@ export default function Hero3DPhone() {
         />
       ) : (
         /* Graceful Fallback if WebGL unavailable */
-        <div className="relative w-72 h-[480px] rounded-[44px] border-4 border-cyan-400/40 bg-gradient-to-b from-[#101420] via-[#090b12] to-[#05070d] p-4 shadow-[0_0_50px_rgba(0,229,255,0.2)] flex flex-col items-center justify-between">
-          <div className="w-24 h-4 bg-slate-900 rounded-full border border-white/10 mt-1" />
+        <div className="relative w-64 sm:w-72 h-[420px] sm:h-[480px] rounded-[40px] border-2 border-cyan-400/40 bg-gradient-to-b from-[#101420] via-[#090b12] to-[#05070d] p-4 shadow-[0_0_50px_rgba(0,229,255,0.2)] flex flex-col items-center justify-between">
+          <div className="w-20 h-3.5 bg-slate-900 rounded-full border border-white/10 mt-1" />
           <div className="text-center">
             <span className="text-xs uppercase tracking-widest text-[#00e5ff] font-tech font-bold block mb-1">
               TECH BOSS
             </span>
-            <span className="text-xl font-display font-bold text-white block">
+            <span className="text-lg sm:text-xl font-display font-bold text-white block">
               TAMIL TECH
             </span>
             <span className="text-xs text-slate-400 font-tech">
               BEYOND LIMITS
             </span>
           </div>
-          <div className="w-full p-4 rounded-2xl bg-white/5 border border-white/10 text-center">
+          <div className="w-full p-3 sm:p-4 rounded-2xl bg-white/5 border border-white/10 text-center">
             <span className="text-xs text-[#00e5ff] font-tech">120Hz LTPO AMOLED</span>
             <div className="text-xs text-slate-300 mt-1">Snapdragon 8 Elite • 3nm</div>
           </div>
         </div>
       )}
 
-      {/* Tasteful Floating UI Badges around device (as specified in prompt) */}
-      <div className="absolute -top-2 -left-2 md:-left-8 flex items-center gap-2.5 px-3 py-1.5 rounded-xl bg-[#0e121d]/85 border border-[#00e5ff]/30 shadow-lg shadow-black/60 backdrop-blur-md animate-pulse">
+      {/* Floating Badges with mobile-safe coordinates */}
+      <div className="absolute top-2 left-2 sm:-left-4 flex items-center gap-2 px-2.5 sm:px-3 py-1.5 rounded-xl bg-[#0e121d]/90 border border-[#00e5ff]/30 shadow-lg shadow-black/60 backdrop-blur-md">
         <span className="flex h-2 w-2 rounded-full bg-[#00e5ff]" />
-        <span className="text-xs font-tech font-bold text-[#00e5ff] flex items-center gap-1">
+        <span className="text-[11px] sm:text-xs font-tech font-bold text-[#00e5ff] flex items-center gap-1">
           <Cpu className="w-3.5 h-3.5" /> AI ENGINE
         </span>
-        <span className="text-[10px] text-slate-400 font-mono hidden sm:inline">48 TOPS</span>
+        <span className="text-[10px] text-slate-400 font-mono hidden sm:inline">NPU</span>
       </div>
 
-      <div className="absolute top-1/4 -right-3 md:-right-6 flex items-center gap-2 px-3 py-1.5 rounded-xl bg-[#0e121d]/85 border border-white/15 shadow-lg shadow-black/60 backdrop-blur-md">
+      <div className="absolute top-1/4 right-2 sm:-right-4 flex items-center gap-1.5 px-2.5 sm:px-3 py-1.5 rounded-xl bg-[#0e121d]/90 border border-white/15 shadow-lg shadow-black/60 backdrop-blur-md">
         <Wifi className="w-3.5 h-3.5 text-[#00e5ff]" />
-        <span className="text-xs font-tech font-semibold text-white">5G TRUE SA</span>
-        <span className="text-[10px] text-emerald-400 font-mono">ACTIVE</span>
+        <span className="text-[11px] sm:text-xs font-tech font-semibold text-white">5G SA</span>
+        <span className="text-[10px] text-emerald-400 font-mono">BAND 78</span>
       </div>
 
-      <div className="absolute bottom-28 -left-4 md:-left-10 flex items-center gap-2 px-3 py-1.5 rounded-xl bg-[#0e121d]/85 border border-purple-500/30 shadow-lg shadow-black/60 backdrop-blur-md">
+      <div className="absolute bottom-20 left-2 sm:-left-6 flex items-center gap-1.5 px-2.5 sm:px-3 py-1.5 rounded-xl bg-[#0e121d]/90 border border-purple-500/30 shadow-lg shadow-black/60 backdrop-blur-md">
         <Camera className="w-3.5 h-3.5 text-purple-400" />
-        <span className="text-xs font-tech font-semibold text-white">PERISCOPE</span>
+        <span className="text-[11px] sm:text-xs font-tech font-semibold text-white">PERISCOPE</span>
         <span className="text-[10px] text-purple-300 font-mono">5X OIS</span>
       </div>
 
-      <div className="absolute -bottom-2 right-2 md:right-4 flex items-center gap-2 px-3 py-1.5 rounded-xl bg-[#0e121d]/85 border border-[#00e5ff]/25 shadow-lg shadow-black/60 backdrop-blur-md">
+      <div className="absolute bottom-2 right-2 sm:right-2 flex items-center gap-1.5 px-2.5 sm:px-3 py-1.5 rounded-xl bg-[#0e121d]/90 border border-[#00e5ff]/25 shadow-lg shadow-black/60 backdrop-blur-md">
         <Zap className="w-3.5 h-3.5 text-yellow-400" />
-        <span className="text-xs font-tech font-semibold text-white">PERFORMANCE</span>
-        <span className="text-[10px] text-cyan-300 font-mono">3nm GEN-3</span>
+        <span className="text-[11px] sm:text-xs font-tech font-semibold text-white">CHIPSET</span>
+        <span className="text-[10px] text-cyan-300 font-mono">3nm</span>
       </div>
     </div>
   );

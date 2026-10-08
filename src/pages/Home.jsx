@@ -12,7 +12,9 @@ import {
   Bot,
   Zap,
   Users,
-  Sparkles
+  Sparkles,
+  Layers,
+  CheckCircle2
 } from 'lucide-react';
 import Hero3DPhone from '../components/hero/Hero3DPhone';
 import AICoreVisual from '../components/hero/AICoreVisual';
@@ -32,8 +34,8 @@ export default function Home({ onSelectVideo }) {
   const trendingCategories = [
     {
       title: 'SMARTPHONES',
-      tag: 'FLAGSHIPS & BUDGET',
-      description: 'Snapdragon 8 Elite benchmarks, 200MP camera shootouts, and best phones under ₹20,000.',
+      tag: 'FLAGSHIPS & VALUE',
+      description: 'Snapdragon 8 Elite benchmarks, 200MP sensor tests, and genuine Tamil battery endurance marathons.',
       icon: Smartphone,
       accent: '#00e5ff',
       link: '/tech-hub',
@@ -41,8 +43,8 @@ export default function Home({ onSelectVideo }) {
     },
     {
       title: 'ARTIFICIAL INTELLIGENCE',
-      tag: 'LOCAL LLMS & PROMPTS',
-      description: 'DeepSeek, Claude 3.7, automated video editing, and how AI reshapes everyday Tamil computing.',
+      tag: 'LOCAL RUNTIMES & TOOLS',
+      description: 'DeepSeek, Claude 3.7, automated video workflows, and how modern AI fits into Tamil computing.',
       icon: Cpu,
       accent: '#8b5cf6',
       link: '/tech-hub',
@@ -50,8 +52,8 @@ export default function Home({ onSelectVideo }) {
     },
     {
       title: 'HARDWARE & GADGETS',
-      tag: 'AUDIO & WEARABLES',
-      description: 'Noise-canceling earphones, smart rings, GaN chargers, and high-efficiency daily tech gear.',
+      tag: 'AUDIO & CHARGING',
+      description: 'Active noise cancellation shootouts, GaN thermal checks, and high-efficiency daily tech accessories.',
       icon: Zap,
       accent: '#38bdf8',
       link: '/tech-hub',
@@ -59,8 +61,8 @@ export default function Home({ onSelectVideo }) {
     },
     {
       title: 'FUTURE COMPUTING',
-      tag: 'SILICON & ROBOTICS',
-      description: 'Quantum advances, Apple Silicon roadmaps, and humanoid robotics explained simply.',
+      tag: 'SILICON & ARCHITECTURE',
+      description: '3nm semiconductor leaps, Apple Silicon roadmaps, and robotics breakthroughs explained simply.',
       icon: Bot,
       accent: '#10b981',
       link: '/tech-hub',
@@ -81,7 +83,7 @@ export default function Home({ onSelectVideo }) {
       {/* ==================================================
           1. CINEMATIC HERO SECTION
          ================================================== */}
-      <section className="relative min-h-[92vh] sm:min-h-screen pt-28 sm:pt-32 pb-16 flex items-center justify-center tech-grid-pattern">
+      <section className="relative min-h-[90vh] sm:min-h-screen pt-28 sm:pt-32 pb-16 flex items-center justify-center tech-grid-pattern">
         {/* Subtle Background Radial Atmosphere */}
         <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[600px] h-[500px] bg-gradient-to-tr from-cyan-600/10 via-blue-600/10 to-purple-600/10 rounded-full blur-[120px] pointer-events-none" />
 
@@ -97,31 +99,33 @@ export default function Home({ onSelectVideo }) {
               {/* Creator Pill */}
               <div className="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full bg-cyan-500/10 border border-cyan-500/30 text-xs font-tech font-bold tracking-widest text-[#00e5ff] uppercase backdrop-blur-md">
                 <span className="flex h-2 w-2 rounded-full bg-[#00e5ff] animate-ping" />
-                <span>TAMIL TECH CREATOR</span>
+                <span>TECH BOSS • TAMIL TECH UNIVERSE</span>
               </div>
 
-              {/* Ultra Bold Hero Headline */}
-              <h1 className="text-4xl sm:text-6xl lg:text-7xl xl:text-8xl font-black font-display tracking-tight text-white leading-[1.04]">
+              {/* Verified Editorial Headline */}
+              <h1 className="text-4xl sm:text-6xl lg:text-7xl xl:text-8xl font-black font-display tracking-tight text-white leading-[1.05]">
                 TAMIL TECH. <br />
-                <span className="text-gradient-cyan">BEYOND LIMITS.</span>
+                REAL REVIEWS. <br />
+                <span className="text-gradient-cyan">SMARTER CHOICES.</span>
               </h1>
 
-              {/* Supporting Text */}
+              {/* Supporting Copy */}
               <p className="text-base sm:text-lg lg:text-xl text-slate-300 font-sans max-w-2xl leading-relaxed mx-auto lg:mx-0">
-                Technology explained simply. Discover smartphones, gadgets, AI, apps and the future of tech — all in Tamil.
+                Tamil technology content covering smartphones, AI, gadgets, laptops and future technology. Unfiltered testing, straightforward breakdowns, and consumer-first integrity.
               </p>
 
-              {/* Primary Buttons */}
+              {/* Primary CTAs */}
               <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 pt-2">
-                <Button
-                  variant="primary"
-                  size="lg"
-                  icon={Play}
-                  onClick={() => onSelectVideo(featuredVid)}
-                  className="w-full sm:w-auto"
-                >
-                  WATCH LATEST VIDEO
-                </Button>
+                <Link to="/videos" className="w-full sm:w-auto">
+                  <Button
+                    variant="primary"
+                    size="lg"
+                    icon={Play}
+                    className="w-full sm:w-auto"
+                  >
+                    EXPLORE VIDEOS
+                  </Button>
+                </Link>
                 <Link to="/tech-hub" className="w-full sm:w-auto">
                   <Button
                     variant="secondary"
@@ -129,29 +133,29 @@ export default function Home({ onSelectVideo }) {
                     icon={Compass}
                     className="w-full sm:w-auto"
                   >
-                    EXPLORE TECH HUB
+                    ENTER TECH HUB
                   </Button>
                 </Link>
               </div>
 
-              {/* Secondary Community Link */}
+              {/* Direct Community Link */}
               <div className="pt-2">
                 <Link
                   to="/community"
                   className="inline-flex items-center gap-2 text-xs sm:text-sm font-tech text-slate-400 hover:text-[#00e5ff] transition-colors group"
                 >
-                  <span>Join the Tech Boss community</span>
+                  <span>Ask Tech Boss a question or join the discussion</span>
                   <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
                 </Link>
               </div>
             </motion.div>
 
-            {/* Right Side: Interactive 3D Smartphone Device Composition (5 cols) */}
+            {/* Right Side: Interactive 3D Smartphone Device (5 cols) */}
             <motion.div
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.8, delay: 0.2 }}
-              className="lg:col-span-5 flex justify-center z-10"
+              className="lg:col-span-5 flex justify-center z-10 w-full"
             >
               <Hero3DPhone />
             </motion.div>
@@ -165,37 +169,81 @@ export default function Home({ onSelectVideo }) {
         </div>
       </section>
 
-      {/* ==================================================
-          2. CREATOR STATS STRIP
-         ================================================== */}
+      {/* Platform Pillars & Real Database Metrics */}
       <StatsCounter />
 
       {/* ==================================================
-          3. LATEST FEATURED VIDEO
+          2. LATEST FROM TECH BOSS
          ================================================== */}
-      <FeaturedVideo video={featuredVid} onSelect={onSelectVideo} />
-
-      {/* ==================================================
-          4. WHAT'S TRENDING IN TECH
-         ================================================== */}
-      <section className="relative w-full py-16 bg-[#090b12]/60">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-10 gap-4">
+      <section className="relative w-full py-16 bg-[#080a11]/90">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
+          {/* Section Header */}
+          <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 pb-4 border-b border-white/10">
             <div>
               <span className="text-xs font-tech font-bold uppercase tracking-widest text-[#00e5ff] block mb-2">
-                CURATED CATEGORIES
+                LATEST COVERAGE
               </span>
               <h2 className="text-2xl sm:text-4xl font-black font-display text-white">
-                WHAT'S TRENDING
+                LATEST FROM TECH BOSS
               </h2>
             </div>
             <p className="text-xs font-tech text-slate-400 max-w-sm">
-              Explore key tech verticals driving the next decade of Tamil digital literacy.
+              In-depth shootouts, real-world heat testing, and consumer buying advice in clear Tamil.
+            </p>
+          </div>
+
+          {/* Featured Video Spotlight */}
+          <FeaturedVideo video={featuredVid} onSelect={onSelectVideo} />
+
+          {/* Recent Uploads Grid */}
+          <div className="space-y-6 pt-4">
+            <div className="flex items-center justify-between">
+              <h3 className="text-lg font-bold font-display text-white">
+                Recent Video Uploads
+              </h3>
+              <Link
+                to="/videos"
+                className="text-xs font-tech font-bold text-cyan-400 hover:text-cyan-300 flex items-center gap-1"
+              >
+                <span>View all videos</span>
+                <ArrowRight className="w-3.5 h-3.5" />
+              </Link>
+            </div>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+              {latestVideos.map((video) => (
+                <VideoCard
+                  key={video.id}
+                  video={video}
+                  onSelect={onSelectVideo}
+                />
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ==================================================
+          3. EXPLORE THE TECH UNIVERSE
+         ================================================== */}
+      <section className="relative w-full py-20 bg-[#090b12]">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-12 gap-4">
+            <div>
+              <span className="text-xs font-tech font-bold uppercase tracking-widest text-[#00e5ff] block mb-2">
+                CATEGORIES & DOMAINS
+              </span>
+              <h2 className="text-2xl sm:text-4xl font-black font-display text-white">
+                EXPLORE THE TECH UNIVERSE
+              </h2>
+            </div>
+            <p className="text-xs font-tech text-slate-400 max-w-sm">
+              Explore key tech verticals driving the next wave of Tamil digital awareness.
             </p>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {trendingCategories.map((item, idx) => {
+            {trendingCategories.map((item) => {
               const Icon = item.icon;
               return (
                 <Link
@@ -203,7 +251,6 @@ export default function Home({ onSelectVideo }) {
                   to={item.link}
                   className="group relative flex flex-col rounded-2xl bg-[#0e111b] border border-white/10 hover:border-cyan-500/40 p-6 overflow-hidden transition-all duration-300 hover:-translate-y-1.5 shadow-lg"
                 >
-                  {/* Subtle top image strip */}
                   <div className="relative h-28 -mx-6 -mt-6 mb-5 overflow-hidden">
                     <img
                       src={item.image}
@@ -238,22 +285,22 @@ export default function Home({ onSelectVideo }) {
       </section>
 
       {/* ==================================================
-          5. FEATURED GADGETS SHOWCASE
+          4. FEATURED TECHNOLOGY
          ================================================== */}
-      <section className="relative w-full py-16">
+      <section className="relative w-full py-20 bg-[#07090f]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-10 gap-4">
+          <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-12 gap-4">
             <div>
               <span className="text-xs font-tech font-bold uppercase tracking-widest text-[#00e5ff] block mb-2">
-                CURATED HARDWARE
+                VERIFIED HARDWARE
               </span>
               <h2 className="text-2xl sm:text-4xl font-black font-display text-white">
-                TECH WORTH KNOWING
+                FEATURED TECHNOLOGY
               </h2>
             </div>
             <Link to="/tech-hub">
               <Button variant="outline" size="sm" icon={ArrowRight} iconPosition="right">
-                View All Devices
+                View All Devices & Comparisons
               </Button>
             </Link>
           </div>
@@ -267,49 +314,7 @@ export default function Home({ onSelectVideo }) {
       </section>
 
       {/* ==================================================
-          6. LATEST VIDEOS GRID
-         ================================================== */}
-      <section className="relative w-full py-16 bg-[#080a11]">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-10 gap-4">
-            <div>
-              <span className="text-xs font-tech font-bold uppercase tracking-widest text-[#00e5ff] block mb-2">
-                TECH BOSS ARCHIVE
-              </span>
-              <h2 className="text-2xl sm:text-4xl font-black font-display text-white">
-                RECENT UPLOADS
-              </h2>
-            </div>
-            <Link to="/videos">
-              <Button variant="primary" size="sm" icon={ArrowRight} iconPosition="right">
-                VIEW ALL VIDEOS →
-              </Button>
-            </Link>
-          </div>
-
-          {/* 4 cols desktop, 2 cols tablet, 1 col mobile */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {latestVideos.map((video) => (
-              <VideoCard
-                key={video.id}
-                video={video}
-                onSelect={onSelectVideo}
-              />
-            ))}
-          </div>
-
-          <div className="mt-12 text-center">
-            <Link to="/videos">
-              <Button variant="secondary" size="lg" icon={Play}>
-                BROWSE FULL VIDEO LIBRARY ({VIDEOS_DATA.length}+ EPISODES)
-              </Button>
-            </Link>
-          </div>
-        </div>
-      </section>
-
-      {/* ==================================================
-          7. AI & FUTURE TECH SECTION
+          5. AI & FUTURE TECH
          ================================================== */}
       <section className="relative w-full py-20 bg-gradient-to-b from-[#090b12] to-[#0d101a] border-y border-white/10 overflow-hidden">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -322,14 +327,14 @@ export default function Home({ onSelectVideo }) {
               </div>
 
               <h2 className="text-3xl sm:text-5xl font-black font-display text-white tracking-tight leading-tight">
-                THE FUTURE IS <br />
+                AI & FUTURE TECH. <br />
                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#00e5ff] via-purple-400 to-[#00e5ff]">
-                  ALREADY HERE.
+                  EXPLAINED IN TAMIL.
                 </span>
               </h2>
 
               <p className="text-sm sm:text-base text-slate-300 font-sans leading-relaxed max-w-xl">
-                From open-weights reasoning models running locally on smartphones to humanoids in factory lines, Tamil technology media is evolving to cover foundational science and practical application.
+                From open-weights reasoning models running locally on laptops to humanoid robotics, Tech Boss breaks down complex algorithmic concepts and hardware leaps into practical, understandable Tamil.
               </p>
 
               {/* Topics List */}
@@ -364,7 +369,7 @@ export default function Home({ onSelectVideo }) {
       </section>
 
       {/* ==================================================
-          8. COMMUNITY CALL TO ACTION
+          6. COMMUNITY CALL TO ACTION
          ================================================== */}
       <section className="relative w-full py-20 bg-[#07080c]">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
@@ -373,21 +378,21 @@ export default function Home({ onSelectVideo }) {
 
             <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/5 border border-white/10 text-xs font-tech text-cyan-400 uppercase tracking-wider mb-6">
               <Users className="w-3.5 h-3.5" />
-              <span>THE TECH BOSS MOVEMENT</span>
+              <span>COMMUNITY INTERACTION</span>
             </div>
 
             <h2 className="text-3xl sm:text-5xl font-black font-display text-white tracking-tight">
-              TECH SHOULD BE FOR EVERYONE.
+              GOT A TECH QUESTION FOR TECH BOSS?
             </h2>
 
             <p className="mt-4 text-base text-slate-300 font-sans max-w-2xl mx-auto leading-relaxed">
-              Stay updated with the latest technology, discoveries, benchmarks and ideas from the Tech Boss community.
+              Ask your questions directly through our community platform. Submissions are stored in our PostgreSQL database and selected for upcoming reviews and Q&A streams.
             </p>
 
             <div className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-4">
               <Link to="/community" className="w-full sm:w-auto">
                 <Button variant="primary" size="lg" className="w-full sm:w-auto">
-                  JOIN THE COMMUNITY
+                  ASK A QUESTION
                 </Button>
               </Link>
               <a

@@ -74,12 +74,14 @@ export default function FeaturedVideo({ video, onSelect }) {
             <div className="lg:col-span-5 p-6 sm:p-8 lg:p-10 flex flex-col justify-center space-y-5">
               <div className="flex items-center gap-3 text-xs font-tech text-slate-400">
                 <span className="flex items-center gap-1.5 text-cyan-400 font-semibold">
-                  <Eye className="w-4 h-4" /> {video.views} Views
+                  <Play className="w-3.5 h-3.5" /> {video.duration}
                 </span>
                 <span>•</span>
-                <span className="flex items-center gap-1">
-                  <Calendar className="w-4 h-4" /> {video.date}
+                <span className="text-slate-300 font-mono">
+                  {video.quality || "4K UHD"}
                 </span>
+                <span>•</span>
+                <span>{video.date}</span>
               </div>
 
               <h3

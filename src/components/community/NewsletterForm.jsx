@@ -116,7 +116,7 @@ export default function NewsletterForm() {
                 </Button>
               </div>
               <span className="block mt-4 text-[11px] font-mono text-slate-500">
-                Join 45,000+ Tamil readers. Subscriptions persist directly to PostgreSQL.
+                Weekly curated Tamil tech roundups. Subscriptions persist directly to PostgreSQL.
               </span>
             </form>
           )}

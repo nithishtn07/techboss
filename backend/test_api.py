@@ -72,6 +72,32 @@ def run_tests():
     assert "already subscribed" in body.get("message", "").lower()
     print("PASS: Duplicate newsletter subscription cleanly rejected\n")
 
+    print("=== 6. Testing GET /api/questions (Public Community Feed) ===")
+    status, body = request_json("/api/questions")
+    print(f"Status: {status}, Total returned: {len(body) if isinstance(body, list) else 0}")
+    assert status == 200
+    assert isinstance(body, list)
+    if body:
+        first_q = body[0]
+        assert "id" in first_q
+        assert "name" in first_q
+        assert "category" in first_q
+        assert "question" in first_q
+        # Critical privacy requirement: NEVER expose email!
+        assert "email" not in first_q, "CRITICAL: Private email must NOT be exposed in GET /api/questions"
+        print(f"Sample public question: {first_q['name']} asks '{first_q['question'][:40]}...'")
+    print("PASS: Public community questions retrieved securely without email exposure\n")
+
+    print("=== 7. Testing GET /api/stats (Real Database Metrics) ===")
+    status, body = request_json("/api/stats")
+    print(f"Status: {status}, Stats: {body}")
+    assert status == 200
+    assert "total_questions" in body
+    assert "total_subscribers" in body
+    assert body["total_questions"] >= 1
+    assert body["total_subscribers"] >= 1
+    print("PASS: Real platform stats confirmed from PostgreSQL\n")
+
     print("=== 6. Verifying Direct Records in PostgreSQL Database ===")
     conn = psycopg2.connect(DB_URL)
     cur = conn.cursor()

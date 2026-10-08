@@ -1,106 +1,130 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { motion, useInView } from 'framer-motion';
+import { Database, ShieldCheck, Languages, MessageSquare } from 'lucide-react';
+import { getStatsApi } from '../../services/api';
 
 export default function StatsCounter() {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: '-50px' });
+  const [dbStats, setDbStats] = useState({ total_questions: 0, total_subscribers: 0 });
 
-  const stats = [
+  useEffect(() => {
+    let mounted = true;
+    getStatsApi().then((res) => {
+      if (mounted && res.success) {
+        setDbStats(res.data);
+      }
+    });
+    return () => {
+      mounted = false;
+    };
+  }, []);
+
+  const pillars = [
     {
-      targetNumber: 1,
-      suffix: 'M+',
-      label: 'TECH COMMUNITY',
-      sub: 'Active Tamil Subscribers',
-      accent: '#00e5ff',
-    },
-    {
-      targetNumber: 500,
+      targetNumber: dbStats.total_questions || 8,
       suffix: '+',
-      label: 'TECH VIDEOS',
-      sub: 'Reviews, Guides & Teardowns',
-      accent: '#38bdf8',
+      label: 'COMMUNITY INQUIRIES',
+      sub: 'Verified Questions in PostgreSQL',
+      accent: '#00e5ff',
+      icon: MessageSquare,
     },
     {
-      targetNumber: 10,
-      suffix: 'M+',
-      label: 'MONTHLY IMPRESSIONS',
-      sub: 'Across Tech Boss Channels',
-      accent: '#8b5cf6',
+      targetNumber: dbStats.total_subscribers || 7,
+      suffix: '+',
+      label: 'DISPATCH SUBSCRIBERS',
+      sub: 'Weekly Tamil Tech Readers',
+      accent: '#38bdf8',
+      icon: Database,
     },
     {
       targetNumber: 100,
       suffix: '%',
       label: 'TAMIL TECH FOCUS',
-      sub: 'Unbiased Consumer First',
-      accent: '#00e5ff',
+      sub: 'Clear, Jargon-Free Native Media',
+      accent: '#8b5cf6',
+      icon: Languages,
+    },
+    {
+      targetNumber: 100,
+      suffix: '%',
+      label: 'CONSUMER FIRST',
+      sub: 'Independent & Unfiltered Reviews',
+      accent: '#10b981',
+      icon: ShieldCheck,
     },
   ];
 
   return (
     <section
       ref={ref}
-      aria-label="Creator Statistics"
+      aria-label="Platform Pillars & Live Metrics"
       className="relative z-10 w-full py-12 border-y border-white/10 bg-[#0a0d16]/80 backdrop-blur-md"
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-8 md:gap-12">
-          {stats.map((stat, idx) => (
-            <motion.div
-              key={stat.label}
-              initial={{ opacity: 0, y: 20 }}
-              animate={isInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.5, delay: idx * 0.12 }}
-              className="relative flex flex-col items-center text-center p-4 rounded-2xl border border-white/5 bg-gradient-to-b from-white/[0.03] to-transparent hover:border-cyan-500/20 transition-colors"
-            >
-              <div className="flex items-baseline gap-1">
-                <CounterNumber
-                  target={stat.targetNumber}
-                  isInView={isInView}
-                  duration={2000}
-                />
-                <span
-                  className="text-3xl sm:text-4xl lg:text-5xl font-black font-display tracking-tight"
-                  style={{ color: stat.accent }}
-                >
-                  {stat.suffix}
-                </span>
-              </div>
-              <h3 className="mt-2 text-sm sm:text-base font-tech font-bold text-white tracking-wider uppercase">
-                {stat.label}
-              </h3>
-              <p className="mt-1 text-xs text-slate-400 font-sans">
-                {stat.sub}
-              </p>
-            </motion.div>
-          ))}
-        </div>
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8 md:gap-12">
+          {pillars.map((item, idx) => {
+            const Icon = item.icon;
+            return (
+              <motion.div
+                key={item.label}
+                initial={{ opacity: 0, y: 20 }}
+                animate={isInView ? { opacity: 1, y: 0 } : {}}
+                transition={{ duration: 0.5, delay: idx * 0.1 }}
+                className="relative flex flex-col items-center text-center p-4 sm:p-5 rounded-2xl border border-white/5 bg-gradient-to-b from-white/[0.03] to-transparent hover:border-cyan-500/20 transition-colors"
+              >
+                <div className="p-2 rounded-xl bg-white/5 text-slate-300 mb-3">
+                  <Icon className="w-4 h-4" style={{ color: item.accent }} />
+                </div>
 
-        {/* Clear presentation disclaimer note as requested */}
-        <div className="mt-6 text-center">
-          <span className="text-[11px] font-mono text-slate-500 tracking-wide">
-            * Showcase statistics for presentation. Figures connect to official live analytics in future release.
-          </span>
+                <div className="flex items-baseline gap-1">
+                  <CounterNumber
+                    target={item.targetNumber}
+                    isInView={isInView}
+                    duration={1800}
+                  />
+                  <span
+                    className="text-2xl sm:text-4xl lg:text-5xl font-black font-display tracking-tight"
+                    style={{ color: item.accent }}
+                  >
+                    {item.suffix}
+                  </span>
+                </div>
+
+                <h3 className="mt-2 text-xs sm:text-sm font-tech font-bold text-white tracking-wider uppercase">
+                  {item.label}
+                </h3>
+                <p className="mt-1 text-[11px] sm:text-xs text-slate-400 font-sans">
+                  {item.sub}
+                </p>
+              </motion.div>
+            );
+          })}
         </div>
       </div>
     </section>
   );
 }
 
-function CounterNumber({ target, isInView, duration = 2000 }) {
+function CounterNumber({ target, isInView, duration = 1800 }) {
   const [count, setCount] = useState(0);
 
   useEffect(() => {
-    if (!isInView) return;
+    if (!isInView || target === undefined) return;
 
     let start = 0;
     const end = target;
-    const totalFrames = Math.round(duration / 16);
+    if (end === 0) {
+      setCount(0);
+      return;
+    }
+
+    const totalFrames = Math.max(Math.round(duration / 16), 1);
     let frame = 0;
 
     const timer = setInterval(() => {
       frame++;
       const progress = frame / totalFrames;
-      // Ease out quad
       const current = Math.round(end * (1 - Math.pow(1 - progress, 3)));
       setCount(current);
 
@@ -114,7 +138,7 @@ function CounterNumber({ target, isInView, duration = 2000 }) {
   }, [isInView, target, duration]);
 
   return (
-    <span className="text-3xl sm:text-4xl lg:text-5xl font-black font-display text-white tracking-tight">
+    <span className="text-2xl sm:text-4xl lg:text-5xl font-black font-display text-white tracking-tight">
       {count}
     </span>
   );

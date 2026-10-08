@@ -79,3 +79,63 @@ export async function subscribeNewsletterApi(email) {
     };
   }
 }
+
+/**
+ * Fetches public community questions from FastAPI GET /api/questions
+ * Safe public fields only (never exposes email addresses)
+ * @param {number} limit
+ */
+export async function getQuestionsApi(limit = 20) {
+  try {
+    const response = await fetch(`${API_BASE_URL}/api/questions?limit=${limit}`);
+    if (!response.ok) {
+      return {
+        success: false,
+        data: [],
+        message: 'Unable to load community questions right now.',
+      };
+    }
+    const data = await response.json();
+    return {
+      success: true,
+      data: Array.isArray(data) ? data : [],
+    };
+  } catch (err) {
+    return {
+      success: false,
+      data: [],
+      message: 'Community services are temporarily unavailable.',
+      isNetworkError: true,
+    };
+  }
+}
+
+/**
+ * Fetches verified database metrics (total questions, total subscribers)
+ */
+export async function getStatsApi() {
+  try {
+    const response = await fetch(`${API_BASE_URL}/api/stats`);
+    if (!response.ok) {
+      return {
+        success: false,
+        data: { total_questions: 0, total_subscribers: 0 },
+      };
+    }
+    const data = await response.json();
+    return {
+      success: true,
+      data: {
+        total_questions: Number(data?.total_questions) || 0,
+        total_subscribers: Number(data?.total_subscribers) || 0,
+      },
+    };
+  } catch (err) {
+    return {
+      success: false,
+      data: { total_questions: 0, total_subscribers: 0 },
+      isNetworkError: true,
+    };
+  }
+}
+

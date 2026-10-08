@@ -1,22 +1,22 @@
 import React, { useState, useMemo } from 'react';
-import { Search, ArrowUpDown, Play, RefreshCw } from 'lucide-react';
+import { Search, ArrowUpDown, Play, RefreshCw, Sparkles } from 'lucide-react';
 import VideoCard from '../components/video/VideoCard';
 import Button from '../components/ui/Button';
 import { VIDEOS_DATA, VIDEO_CATEGORIES } from '../data/videos';
 
 export default function Videos({ onSelectVideo }) {
-  const [selectedCategory, setSelectedCategory] = useState('ALL');
+  const [selectedCategory, setSelectedCategory] = useState('All');
   const [searchQuery, setSearchQuery] = useState('');
-  const [sortBy, setSortBy] = useState('latest'); // 'latest', 'popular', 'title'
+  const [sortBy, setSortBy] = useState('Latest'); // 'Latest', 'Oldest', 'Popular'
   const [visibleCount, setVisibleCount] = useState(8);
 
   const filteredVideos = useMemo(() => {
     let result = [...VIDEOS_DATA];
 
     // Category filter
-    if (selectedCategory !== 'ALL') {
+    if (selectedCategory && selectedCategory.toLowerCase() !== 'all') {
       result = result.filter(
-        (v) => v.category.toUpperCase() === selectedCategory.toUpperCase()
+        (v) => v.category.toLowerCase() === selectedCategory.toLowerCase()
       );
     }
 
@@ -27,22 +27,19 @@ export default function Videos({ onSelectVideo }) {
         (v) =>
           v.title.toLowerCase().includes(q) ||
           v.description.toLowerCase().includes(q) ||
-          v.category.toLowerCase().includes(q)
+          v.category.toLowerCase().includes(q) ||
+          (v.tag && v.tag.toLowerCase().includes(q))
       );
     }
 
-    // Sort
-    if (sortBy === 'popular') {
-      // Parse views string (e.g. "842K" -> 842)
-      result.sort((a, b) => {
-        const valA = parseFloat(a.views) * (a.views.includes('M') ? 1000 : 1);
-        const valB = parseFloat(b.views) * (b.views.includes('M') ? 1000 : 1);
-        return valB - valA;
-      });
-    } else if (sortBy === 'title') {
-      result.sort((a, b) => a.title.localeCompare(b.title));
+    // Sorting
+    if (sortBy === 'Oldest') {
+      result.reverse();
+    } else if (sortBy === 'Popular') {
+      // Prioritize featured and major showdowns
+      result.sort((a, b) => (b.featured ? 1 : 0) - (a.featured ? 1 : 0));
     }
-    // Default 'latest' preserves catalog chronological order
+    // 'Latest' preserves default curated chronological upload sequence
 
     return result;
   }, [selectedCategory, searchQuery, sortBy]);
@@ -55,9 +52,9 @@ export default function Videos({ onSelectVideo }) {
   };
 
   const handleResetFilters = () => {
-    setSelectedCategory('ALL');
+    setSelectedCategory('All');
     setSearchQuery('');
-    setSortBy('latest');
+    setSortBy('Latest');
   };
 
   return (
@@ -69,10 +66,10 @@ export default function Videos({ onSelectVideo }) {
             <Play className="w-3.5 h-3.5" /> OFFICIAL VIDEO DIRECTORY
           </div>
           <h1 className="text-3xl sm:text-5xl font-black font-display text-white tracking-tight">
-            EXPLORE THE TECH BOSS LIBRARY
+            TECH BOSS VIDEO LIBRARY
           </h1>
           <p className="text-sm sm:text-base text-slate-300 font-sans">
-            Technology, gadgets, AI and everything in between — delivered in pure, straightforward Tamil.
+            Smartphones, laptops, local AI and future silicon — tested rigorously and explained in straightforward Tamil.
           </p>
         </div>
 
@@ -84,13 +81,13 @@ export default function Videos({ onSelectVideo }) {
               <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-cyan-400" />
               <input
                 type="text"
-                placeholder="Search videos by title, chip, or topic..."
+                placeholder="Search Tech Boss videos..."
                 value={searchQuery}
                 onChange={(e) => {
                   setSearchQuery(e.target.value);
                   setVisibleCount(8);
                 }}
-                className="w-full bg-[#141824] border border-white/10 focus:border-[#00e5ff] rounded-xl pl-10 pr-4 py-2.5 text-xs sm:text-sm text-white placeholder-slate-500 outline-none transition-colors"
+                className="w-full bg-[#141824] border border-white/10 focus:border-[#00e5ff] rounded-xl pl-10 pr-12 py-2.5 text-xs sm:text-sm text-white placeholder-slate-500 outline-none transition-colors"
               />
               {searchQuery && (
                 <button
@@ -111,9 +108,9 @@ export default function Videos({ onSelectVideo }) {
                 onChange={(e) => setSortBy(e.target.value)}
                 className="bg-[#141824] border border-white/10 focus:border-[#00e5ff] rounded-xl px-3 py-2 text-xs font-tech text-white outline-none cursor-pointer"
               >
-                <option value="latest">Latest Released</option>
-                <option value="popular">Most Popular</option>
-                <option value="title">Title (A - Z)</option>
+                <option value="Latest">Latest</option>
+                <option value="Oldest">Oldest</option>
+                <option value="Popular">Popular</option>
               </select>
             </div>
           </div>
@@ -128,7 +125,7 @@ export default function Videos({ onSelectVideo }) {
                   setVisibleCount(8);
                 }}
                 className={`px-3.5 py-1.5 rounded-lg text-xs font-tech font-bold uppercase transition-all whitespace-nowrap cursor-pointer ${
-                  selectedCategory.toUpperCase() === category.toUpperCase()
+                  selectedCategory.toLowerCase() === category.toLowerCase()
                     ? 'bg-[#00e5ff] text-black shadow-[0_0_15px_rgba(0,229,255,0.4)]'
                     : 'bg-white/5 text-slate-300 hover:bg-white/10 hover:text-white'
                 }`}
@@ -143,9 +140,9 @@ export default function Videos({ onSelectVideo }) {
         <div className="flex items-center justify-between text-xs font-tech text-slate-400">
           <span>
             Showing <strong className="text-white">{displayedVideos.length}</strong> of{' '}
-            <strong className="text-cyan-400">{filteredVideos.length}</strong> matching videos
+            <strong className="text-cyan-400">{filteredVideos.length}</strong> videos
           </span>
-          {(selectedCategory !== 'ALL' || searchQuery) && (
+          {(selectedCategory.toLowerCase() !== 'all' || searchQuery) && (
             <button
               onClick={handleResetFilters}
               className="text-cyan-400 hover:underline flex items-center gap-1 cursor-pointer"
@@ -162,7 +159,7 @@ export default function Videos({ onSelectVideo }) {
               No videos match your search
             </h3>
             <p className="mt-2 text-xs text-slate-400 max-w-sm mx-auto font-sans">
-              Try adjusting your search terms or switch category back to "ALL" to explore our full archive.
+              Try adjusting your search terms or switch category back to "All" to explore the full Tech Boss library.
             </p>
             <Button
               variant="outline"

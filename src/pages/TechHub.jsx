@@ -6,6 +6,7 @@ import {
   Cpu,
   BookOpen,
   Scale,
+  Headphones,
   ExternalLink
 } from 'lucide-react';
 import GadgetCard from '../components/tech/GadgetCard';
@@ -15,9 +16,9 @@ import { GADGETS_DATA, AI_TOOLS_DATA } from '../data/gadgets';
 import { ARTICLES_DATA } from '../data/articles';
 
 export default function TechHub() {
-
   const smartphones = GADGETS_DATA.filter((g) => g.category === 'Smartphones');
   const laptops = GADGETS_DATA.filter((g) => g.category === 'Laptops');
+  const gadgets = GADGETS_DATA.filter((g) => g.category === 'Gadgets');
 
   return (
     <div className="pt-28 pb-20 min-h-screen">
@@ -41,8 +42,9 @@ export default function TechHub() {
             { label: 'Smartphones', id: 'smartphones', icon: Smartphone },
             { label: 'Laptops', id: 'laptops', icon: Laptop },
             { label: 'AI Tools', id: 'ai-tools', icon: Cpu },
+            { label: 'Gadgets', id: 'gadgets', icon: Headphones },
             { label: 'Buying Guides', id: 'guides', icon: BookOpen },
-            { label: 'Comparison Tool', id: 'compare', icon: Scale },
+            { label: 'Comparisons', id: 'compare', icon: Scale },
           ].map((item) => {
             const Icon = item.icon;
             return (
@@ -59,7 +61,7 @@ export default function TechHub() {
         </div>
 
         {/* ==================================================
-            1. SMARTPHONE ZONE
+            1. SMARTPHONES ZONE
            ================================================== */}
         <section id="smartphones" className="space-y-8 scroll-mt-28">
           <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 pb-4 border-b border-white/10">
@@ -71,7 +73,7 @@ export default function TechHub() {
                 </span>
               </div>
               <h2 className="text-2xl sm:text-4xl font-black font-display text-white">
-                SMARTPHONE MATRIX
+                SMARTPHONES
               </h2>
             </div>
             <p className="text-xs font-tech text-slate-400 max-w-sm">
@@ -87,7 +89,7 @@ export default function TechHub() {
         </section>
 
         {/* ==================================================
-            2. LAPTOP ZONE
+            2. LAPTOPS ZONE
            ================================================== */}
         <section id="laptops" className="space-y-8 scroll-mt-28">
           <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 pb-4 border-b border-white/10">
@@ -99,7 +101,7 @@ export default function TechHub() {
                 </span>
               </div>
               <h2 className="text-2xl sm:text-4xl font-black font-display text-white">
-                LAPTOP WORKSTATIONS
+                LAPTOPS
               </h2>
             </div>
             <p className="text-xs font-tech text-slate-400 max-w-sm">
@@ -127,11 +129,11 @@ export default function TechHub() {
                 </span>
               </div>
               <h2 className="text-2xl sm:text-4xl font-black font-display text-white">
-                CURATED AI POWER TOOLS
+                AI TOOLS
               </h2>
             </div>
             <p className="text-xs font-tech text-slate-400 max-w-sm">
-              Independent AI utilities tested for daily Tamil productivity, code generation, and content creation.
+              Independent AI utilities evaluated for practical coding, content generation, and local execution.
             </p>
           </div>
 
@@ -179,16 +181,43 @@ export default function TechHub() {
             ))}
           </div>
 
-          {/* Prompt constraint notice: Do not claim affiliations */}
           <div className="p-3 rounded-xl bg-white/[0.02] border border-white/5 text-center">
             <span className="text-[11px] font-mono text-slate-500">
-              * Note: Tech Boss features these tools strictly for educational evaluation. No corporate affiliations or sponsored endorsements are claimed.
+              * Note: Tech Boss features these tools strictly for educational evaluation. No corporate sponsorships or affiliations are claimed.
             </span>
           </div>
         </section>
 
         {/* ==================================================
-            4. BUYING GUIDES ZONE
+            4. GADGETS & WEARABLES ZONE
+           ================================================== */}
+        <section id="gadgets" className="space-y-8 scroll-mt-28">
+          <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 pb-4 border-b border-white/10">
+            <div>
+              <div className="flex items-center gap-2 mb-1">
+                <Headphones className="w-4 h-4 text-cyan-400" />
+                <span className="text-xs font-tech font-bold uppercase tracking-widest text-cyan-400">
+                  ZONE 04
+                </span>
+              </div>
+              <h2 className="text-2xl sm:text-4xl font-black font-display text-white">
+                GADGETS & WEARABLES
+              </h2>
+            </div>
+            <p className="text-xs font-tech text-slate-400 max-w-sm">
+              Tested audio gear, noise cancellation benchmarks, and daily wearable accessories.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+            {gadgets.map((gadget) => (
+              <GadgetCard key={gadget.id} gadget={gadget} />
+            ))}
+          </div>
+        </section>
+
+        {/* ==================================================
+            5. BUYING GUIDES ZONE
            ================================================== */}
         <section id="guides" className="space-y-8 scroll-mt-28">
           <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 pb-4 border-b border-white/10">
@@ -196,15 +225,15 @@ export default function TechHub() {
               <div className="flex items-center gap-2 mb-1">
                 <BookOpen className="w-4 h-4 text-cyan-400" />
                 <span className="text-xs font-tech font-bold uppercase tracking-widest text-cyan-400">
-                  ZONE 04
+                  ZONE 05
                 </span>
               </div>
               <h2 className="text-2xl sm:text-4xl font-black font-display text-white">
-                EDITORIAL BUYING GUIDES
+                BUYING GUIDES
               </h2>
             </div>
             <p className="text-xs font-tech text-slate-400 max-w-sm">
-              In-depth checklists to avoid marketing traps before spending your hard-earned money.
+              Structured consumer checklists to avoid marketing gimmicks before spending your money.
             </p>
           </div>
 
@@ -216,7 +245,7 @@ export default function TechHub() {
         </section>
 
         {/* ==================================================
-            5. INTERACTIVE COMPARISON TOOL
+            6. COMPARISONS ZONE
            ================================================== */}
         <section id="compare" className="scroll-mt-28">
           <ComparisonTool />

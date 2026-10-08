@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Play, Eye, Clock, Calendar } from 'lucide-react';
+import { Play, Clock, Sparkles } from 'lucide-react';
 
 export default function VideoCard({ video, onSelect }) {
   const handleClick = (e) => {
@@ -41,6 +41,13 @@ export default function VideoCard({ video, onSelect }) {
           {video.category}
         </div>
 
+        {/* Quality / Resolution (Top Right) */}
+        {video.quality && (
+          <div className="absolute top-3 right-3 px-2 py-0.5 rounded bg-black/75 text-[10px] font-mono text-slate-300 border border-white/10 backdrop-blur-md">
+            {video.quality}
+          </div>
+        )}
+
         {/* Duration (Bottom Right) */}
         <div className="absolute bottom-3 right-3 px-2 py-0.5 rounded bg-black/85 text-[11px] font-mono font-medium text-white border border-white/10">
           {video.duration}
@@ -57,13 +64,14 @@ export default function VideoCard({ video, onSelect }) {
           {video.description}
         </p>
 
-        {/* Meta Stats Footer */}
+        {/* Footer Meta & Watch Trigger */}
         <div className="mt-auto pt-4 flex items-center justify-between text-xs font-tech text-slate-400 border-t border-white/5">
           <span className="flex items-center gap-1.5 text-cyan-400/90 font-medium">
-            <Eye className="w-3.5 h-3.5" /> {video.views}
+            <Clock className="w-3.5 h-3.5" /> {video.duration}
           </span>
-          <span className="flex items-center gap-1 text-slate-400">
-            <Calendar className="w-3.5 h-3.5" /> {video.date}
+          <span className="text-[11px] font-tech font-semibold text-white group-hover:text-[#00e5ff] flex items-center gap-1">
+            <span>Watch Details</span>
+            <span className="transition-transform group-hover:translate-x-1">→</span>
           </span>
         </div>
       </div>

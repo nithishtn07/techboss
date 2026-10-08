@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Navbar from './components/layout/Navbar';
 import Footer from './components/layout/Footer';
@@ -13,11 +13,23 @@ import Videos from './pages/Videos';
 import TechHub from './pages/TechHub';
 import Community from './pages/Community';
 import About from './pages/About';
+import CreatorDashboard from './pages/CreatorDashboard';
 import NotFound from './pages/NotFound';
 
 export default function App() {
   const [selectedVideo, setSelectedVideo] = useState(null);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
+
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'k') {
+        e.preventDefault();
+        setIsSearchOpen((prev) => !prev);
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, []);
 
   return (
     <BrowserRouter>
@@ -45,6 +57,7 @@ export default function App() {
             <Route path="/tech-hub" element={<TechHub />} />
             <Route path="/community" element={<Community />} />
             <Route path="/about" element={<About />} />
+            <Route path="/creator-dashboard" element={<CreatorDashboard />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </main>

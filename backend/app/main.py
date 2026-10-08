@@ -37,20 +37,28 @@ app = FastAPI(
 )
 
 # CORS Configuration
-# Allowed origins for development & production (configurable through env)
+# Allowed origins for development & production (supports "*" or comma-separated domains)
 raw_origins = os.getenv(
     "ALLOWED_ORIGINS",
-    "http://localhost:5173,http://127.0.0.1:5173",
+    "*",
 )
-allowed_origins = [origin.strip() for origin in raw_origins.split(",") if origin.strip()]
-
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins=allowed_origins,
-    allow_credentials=True,
-    allow_methods=["GET", "POST", "OPTIONS"],
-    allow_headers=["*"],
-)
+if raw_origins.strip() == "*":
+    app.add_middleware(
+        CORSMiddleware,
+        allow_origins=["*"],
+        allow_credentials=False,
+        allow_methods=["GET", "POST", "OPTIONS"],
+        allow_headers=["*"],
+    )
+else:
+    allowed_origins = [origin.strip() for origin in raw_origins.split(",") if origin.strip()]
+    app.add_middleware(
+        CORSMiddleware,
+        allow_origins=allowed_origins,
+        allow_credentials=True,
+        allow_methods=["GET", "POST", "OPTIONS"],
+        allow_headers=["*"],
+    )
 
 
 # Friendly request validation error handler
@@ -113,6 +121,52 @@ class ApiResponse(BaseModel):
 def health_check():
     """Returns the operational status of the Tech Boss API."""
     return {"status": "ok"}
+
+
+@app.get("/api/questions", summary="Get Public Community Questions")
+def get_public_questions(limit: int = 20, db: Session = Depends(get_db)):
+    """Returns safe, public community questions without revealing email addresses or private info."""
+    try:
+        questions = (
+            db.query(Question)
+            .order_by(Question.created_at.desc())
+            .limit(min(max(limit, 1), 50))
+            .all()
+        )
+        return [
+            {
+                "id": q.id,
+                "name": q.name,
+                "category": q.category,
+                "question": q.question,
+                "created_at": q.created_at.isoformat() if q.created_at else None,
+            }
+            for q in questions
+        ]
+    except SQLAlchemyError as err:
+        logger.error(f"Database error while fetching questions: {err}")
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail="Unable to load community questions right now.",
+        )
+
+
+@app.get("/api/stats", summary="Get Verified Platform Statistics")
+def get_platform_stats(db: Session = Depends(get_db)):
+    """Returns actual verified counts from the PostgreSQL database (zero fake metrics)."""
+    try:
+        total_questions = db.query(Question).count()
+        total_subscribers = db.query(NewsletterSubscriber).count()
+        return {
+            "total_questions": total_questions,
+            "total_subscribers": total_subscribers,
+        }
+    except SQLAlchemyError as err:
+        logger.error(f"Database error while fetching stats: {err}")
+        return {
+            "total_questions": 0,
+            "total_subscribers": 0,
+        }
 
 
 @app.post(

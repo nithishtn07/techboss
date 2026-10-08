@@ -1,16 +1,16 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Users, MessageSquare, Sparkles, Send, ShieldAlert, Heart } from 'lucide-react';
+import { Users, MessageSquare, Sparkles, Send, ShieldCheck, Heart } from 'lucide-react';
 import QuestionForm from '../components/community/QuestionForm';
 import NewsletterForm from '../components/community/NewsletterForm';
 import CommunityWall from '../components/community/CommunityWall';
-import { COMMUNITY_QUESTIONS } from '../data/community';
 
 export default function Community() {
-  const [questionsList, setQuestionsList] = useState(COMMUNITY_QUESTIONS);
+  const [refreshTrigger, setRefreshTrigger] = useState(0);
 
-  const handleNewQuestion = (newQ) => {
-    setQuestionsList((prev) => [newQ, ...prev]);
+  const handleNewQuestion = () => {
+    // Triggers instant refresh of live PostgreSQL community feed
+    setRefreshTrigger((prev) => prev + 1);
   };
 
   return (
@@ -19,13 +19,13 @@ export default function Community() {
         {/* Page Hero */}
         <div className="text-center max-w-3xl mx-auto space-y-3">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/30 text-xs font-tech text-[#00e5ff] uppercase tracking-wider">
-            <Users className="w-3.5 h-3.5" /> 1M+ TECH ENTHUSIASTS
+            <Users className="w-3.5 h-3.5" /> TAMIL TECH FORUM
           </div>
           <h1 className="text-4xl sm:text-6xl font-black font-display text-white tracking-tight">
-            JOIN THE TECH BOSS COMMUNITY
+            TECH BOSS COMMUNITY
           </h1>
           <p className="text-base sm:text-lg text-slate-300 font-sans">
-            Your questions. Your ideas. Your tech. Connecting Tamil Nadu's vibrant community of builders, students, and gadget lovers.
+            Your questions. Real tech discussions. Connecting Tamil Nadu's vibrant community of students, builders, and gadget enthusiasts.
           </p>
         </div>
 
@@ -49,13 +49,13 @@ export default function Community() {
                 <li>Specify your exact budget in INR (e.g., Under ₹25,000).</li>
                 <li>State primary usage: Gaming, Camera, Battery, or College Coding.</li>
                 <li>Mention your current device to help evaluate genuine upgrade value.</li>
-                <li>Top upvoted questions get answered on weekly Tamil live streams!</li>
+                <li>Top inquiries get answered during weekly Tamil live streams!</li>
               </ul>
             </div>
           </div>
         </div>
 
-        {/* Community Wall Section */}
+        {/* Community Wall Section (Connected directly to PostgreSQL) */}
         <section className="pt-8 space-y-6">
           <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 pb-4 border-b border-white/10">
             <div>
@@ -66,15 +66,15 @@ export default function Community() {
                 </span>
               </div>
               <h2 className="text-2xl sm:text-4xl font-black font-display text-white">
-                COMMUNITY WALL
+                COMMUNITY INQUIRIES
               </h2>
             </div>
             <p className="text-xs font-tech text-slate-400 max-w-sm">
-              Real questions asked by subscribers across Tamil Nadu with verified Tech Boss insights.
+              Real questions submitted through our platform and stored in PostgreSQL.
             </p>
           </div>
 
-          <CommunityWall initialQuestions={questionsList} />
+          <CommunityWall refreshTrigger={refreshTrigger} />
         </section>
       </div>
     </div>

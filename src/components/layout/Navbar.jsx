@@ -131,8 +131,9 @@ export default function Navbar({ onOpenSearch }) {
               {/* Mobile Hamburger Button */}
               <button
                 onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+                aria-expanded={mobileMenuOpen}
+                aria-label={mobileMenuOpen ? 'Close navigation menu' : 'Open navigation menu'}
                 className="md:hidden p-2 rounded-xl bg-white/5 border border-white/10 text-white hover:text-cyan-400 transition-colors"
-                aria-label="Toggle mobile menu"
               >
                 {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
               </button>
@@ -149,7 +150,7 @@ export default function Navbar({ onOpenSearch }) {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
             transition={{ duration: 0.25 }}
-            className="fixed inset-0 z-30 pt-20 px-6 pb-8 bg-[#07090eed] backdrop-blur-2xl md:hidden flex flex-col justify-between"
+            className="fixed inset-0 z-30 pt-20 px-6 pb-8 bg-[#07090eed] backdrop-blur-2xl md:hidden flex flex-col justify-between overflow-y-auto"
           >
             <div className="space-y-4 pt-4">
               <span className="text-[11px] font-tech font-bold uppercase tracking-widest text-[#00e5ff] block">

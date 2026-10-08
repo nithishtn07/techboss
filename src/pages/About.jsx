@@ -10,7 +10,11 @@ import {
   ShieldCheck,
   CheckCircle2,
   Tv,
-  Heart
+  Heart,
+  Cpu,
+  Layers,
+  Users,
+  Rocket
 } from 'lucide-react';
 import { YoutubeIcon } from '../components/ui/BrandIcons';
 import Button from '../components/ui/Button';
@@ -23,18 +27,20 @@ export default function About() {
         {/* Page Hero */}
         <div className="text-center max-w-3xl mx-auto space-y-4">
           <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-cyan-500/10 border border-cyan-500/30 text-xs font-tech text-[#00e5ff] uppercase tracking-wider">
-            <Tv className="w-3.5 h-3.5" /> CREATOR CHRONICLE
+            <Tv className="w-3.5 h-3.5" /> EDITORIAL ARCHIVE
           </div>
           <h1 className="text-4xl sm:text-6xl font-black font-display text-white tracking-tight">
-            THE PERSON BEHIND THE TECH
+            THE TECH BOSS CHRONICLE
           </h1>
           <p className="text-base sm:text-lg text-slate-300 font-sans leading-relaxed">
             Bridging cutting-edge global technology and Tamil-speaking consumers through authentic testing, straightforward language, and consumer-first integrity.
           </p>
         </div>
 
-        {/* Creator Studio Visual Feature Area (Replaceable Placeholder) */}
-        <div className="relative rounded-3xl bg-gradient-to-r from-[#0d101b] via-[#121626] to-[#0a0c14] border border-cyan-500/20 shadow-2xl overflow-hidden p-8 sm:p-12 lg:p-16">
+        {/* ==================================================
+            1. THE CREATOR
+           ================================================== */}
+        <section className="relative rounded-3xl bg-gradient-to-r from-[#0d101b] via-[#121626] to-[#0a0c14] border border-cyan-500/20 shadow-2xl overflow-hidden p-8 sm:p-12 lg:p-16">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
             {/* Visual Studio Representation (5 cols) */}
             <div className="lg:col-span-5 relative">
@@ -61,7 +67,7 @@ export default function About() {
             {/* Editorial Bio Overview (7 cols) */}
             <div className="lg:col-span-7 space-y-6">
               <span className="text-xs font-tech font-bold uppercase tracking-widest text-[#00e5ff] block">
-                CREATOR PHILOSOPHY
+                01 • THE CREATOR
               </span>
 
               <h2 className="text-2xl sm:text-4xl font-black font-display text-white leading-tight">
@@ -69,18 +75,18 @@ export default function About() {
               </h2>
 
               <p className="text-sm sm:text-base text-slate-300 font-sans leading-relaxed">
-                Tech Boss is one of South India's premier Tamil technology media platforms, recognized for simplifying smartphones, silicon benchmarks, AI breakthroughs, and consumer hardware.
+                Tech Boss is one of South India's premier Tamil technology media voices, known for demystifying smartphones, silicon architectures, AI models, and consumer gadgets.
               </p>
 
               <p className="text-sm sm:text-base text-slate-300 font-sans leading-relaxed">
-                Rather than reciting PR press releases, every device review is shaped by real-world usage: extreme battery drain under local climate conditions, network handoffs across Indian 5G bands, and genuine long-term value for money in Indian Rupees (INR).
+                Rather than echoing corporate PR releases, every device review is shaped by real-world usage: extreme battery drain tests under local climate conditions, network performance across Indian 5G bands, and genuine long-term value for money in Indian Rupees (INR).
               </p>
 
               {/* Creator Values Grid */}
               <div className="grid grid-cols-2 gap-4 pt-2">
                 <div className="p-4 rounded-xl bg-white/[0.02] border border-white/5">
                   <span className="text-xl font-bold font-display text-[#00e5ff] block">
-                    100% Unfiltered
+                    Unfiltered
                   </span>
                   <span className="text-xs text-slate-400 font-sans mt-1 block">
                     Direct consumer advocacy with zero sponsored sugar-coating.
@@ -88,17 +94,12 @@ export default function About() {
                 </div>
                 <div className="p-4 rounded-xl bg-white/[0.02] border border-white/5">
                   <span className="text-xl font-bold font-display text-purple-400 block">
-                    Pure Tamil
+                    Native Tamil
                   </span>
                   <span className="text-xs text-slate-400 font-sans mt-1 block">
                     Complex computing logic simplified for everyday viewers.
                   </span>
                 </div>
-              </div>
-
-              {/* Verified presentation note */}
-              <div className="p-3 rounded-xl bg-white/[0.02] border border-white/5 text-[11px] font-mono text-slate-500">
-                * Note: Content represents general editorial structure. Verified biography details and studio milestones will link to official creator press kit.
               </div>
 
               <div className="pt-2">
@@ -114,58 +115,101 @@ export default function About() {
               </div>
             </div>
           </div>
-        </div>
+        </section>
 
         {/* ==================================================
-            WHY TAMIL TECH? SECTION
+            2. THE CONTENT PHILOSOPHY
            ================================================== */}
-        <section className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
-          <div className="space-y-4">
-            <span className="text-xs font-tech font-bold uppercase tracking-widest text-[#00e5ff] block">
-              OUR MISSION
+        <section className="space-y-6">
+          <div className="text-center max-w-2xl mx-auto space-y-2">
+            <span className="text-xs font-tech font-bold uppercase tracking-widest text-[#00e5ff]">
+              02 • THE CONTENT PHILOSOPHY
             </span>
             <h3 className="text-3xl font-black font-display text-white">
-              WHY TAMIL TECH?
+              RIGOROUS & CONSUMER FIRST
             </h3>
-            <p className="text-sm text-slate-300 font-sans leading-relaxed">
-              When technology is explained only in technical English, millions of curious consumers and aspiring college students in Tamil Nadu miss out on critical knowledge about data privacy, hardware value, and AI advancements.
-            </p>
-            <p className="text-sm text-slate-300 font-sans leading-relaxed">
-              Tech Boss breaks language barriers. Whether explaining the nuances of an LTPO OLED display or how to run a local AI model for university projects, our mission is digital empowerment through the native power of Tamil.
-            </p>
           </div>
 
-          <div className="p-8 rounded-3xl bg-[#0f121e] border border-white/10 space-y-4">
-            <h4 className="text-lg font-bold font-display text-white flex items-center gap-2">
-              <ShieldCheck className="w-5 h-5 text-[#00e5ff]" /> The Tech Boss Standard
-            </h4>
-            <div className="space-y-3 text-xs text-slate-300 font-sans">
-              <div className="flex items-start gap-2.5">
-                <CheckCircle2 className="w-4 h-4 text-[#00e5ff] shrink-0 mt-0.5" />
-                <span>All phones bought or verified through genuine retail channels for honest long-term evaluations.</span>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div className="p-6 rounded-2xl bg-[#0f121e] border border-white/10 space-y-3">
+              <div className="w-10 h-10 rounded-xl bg-cyan-500/10 text-cyan-400 flex items-center justify-center">
+                <ShieldCheck className="w-5 h-5" />
               </div>
-              <div className="flex items-start gap-2.5">
-                <CheckCircle2 className="w-4 h-4 text-[#00e5ff] shrink-0 mt-0.5" />
-                <span>Camera comparisons evaluated on calibrated screens without deceptive social compression.</span>
+              <h4 className="text-base font-bold font-display text-white">
+                Genuine Retail Testing
+              </h4>
+              <p className="text-xs text-slate-300 font-sans leading-relaxed">
+                Devices tested over weeks in daily Indian environments—subway commutes, Chennai summer thermals, and authentic battery standby.
+              </p>
+            </div>
+
+            <div className="p-6 rounded-2xl bg-[#0f121e] border border-white/10 space-y-3">
+              <div className="w-10 h-10 rounded-xl bg-purple-500/10 text-purple-400 flex items-center justify-center">
+                <Cpu className="w-5 h-5" />
               </div>
-              <div className="flex items-start gap-2.5">
-                <CheckCircle2 className="w-4 h-4 text-[#00e5ff] shrink-0 mt-0.5" />
-                <span>Clear callouts on heating issues, battery drain, and Indian software bloatware.</span>
+              <h4 className="text-base font-bold font-display text-white">
+                No Jargon Without Context
+              </h4>
+              <p className="text-xs text-slate-300 font-sans leading-relaxed">
+                When discussing NPU TOPS, LTPO refresh rates, or silicon lithography, concepts are translated into tangible user benefits.
+              </p>
+            </div>
+
+            <div className="p-6 rounded-2xl bg-[#0f121e] border border-white/10 space-y-3">
+              <div className="w-10 h-10 rounded-xl bg-emerald-500/10 text-emerald-400 flex items-center justify-center">
+                <CheckCircle2 className="w-5 h-5" />
               </div>
+              <h4 className="text-base font-bold font-display text-white">
+                INR Value Focus
+              </h4>
+              <p className="text-xs text-slate-300 font-sans leading-relaxed">
+                Recommendations grounded in real price-to-performance tiers, factoring in Indian warranty support, sales offers, and longevity.
+              </p>
             </div>
           </div>
         </section>
 
         {/* ==================================================
-            THE JOURNEY — TIMELINE VISUAL
+            3. THE TECH UNIVERSE
+           ================================================== */}
+        <section className="space-y-6 p-8 sm:p-12 rounded-3xl bg-[#0a0d16] border border-white/10">
+          <div className="max-w-3xl space-y-3">
+            <span className="text-xs font-tech font-bold uppercase tracking-widest text-[#00e5ff]">
+              03 • THE TECH UNIVERSE
+            </span>
+            <h3 className="text-3xl font-black font-display text-white">
+              MORE THAN JUST SMARTPHONES
+            </h3>
+            <p className="text-sm text-slate-300 font-sans leading-relaxed">
+              While smartphone showdowns remain a cornerstone, the Tech Boss Universe has grown to encompass PC building from Chennai's Ritchie Street, local open-source AI experiments, home automation, and futuristic transport technologies.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 pt-4">
+            {[
+              { label: 'Mobile Hardware', desc: 'Camera shootouts & battery benchmarks' },
+              { label: 'Artificial Intelligence', desc: 'Local models, reasoning & practical tools' },
+              { label: 'PC & Laptop Builds', desc: 'Creator workstations & budget rigs' },
+              { label: 'Wearables & Audio', desc: 'ANC evaluation & smart accessories' },
+            ].map((item) => (
+              <div key={item.label} className="p-4 rounded-xl bg-white/[0.02] border border-white/5 space-y-1">
+                <h5 className="font-tech font-bold text-white text-xs text-[#00e5ff]">{item.label}</h5>
+                <p className="text-[11px] text-slate-400 font-sans">{item.desc}</p>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        {/* ==================================================
+            4. THE COMMUNITY (TIMELINE)
            ================================================== */}
         <section className="space-y-12">
           <div className="text-center max-w-2xl mx-auto space-y-2">
             <span className="text-xs font-tech font-bold uppercase tracking-widest text-[#00e5ff]">
-              THE JOURNEY
+              04 • THE COMMUNITY
             </span>
             <h3 className="text-3xl sm:text-4xl font-black font-display text-white">
-              FROM FIRST VIDEO TO 1M+ TECH BOSS FAM
+              THE DEVELOPMENT TIMELINE
             </h3>
             <p className="text-xs text-slate-400 font-sans">
               Key development milestones in building South India's trusted technology media voice.
@@ -182,7 +226,6 @@ export default function About() {
                 transition={{ duration: 0.5, delay: idx * 0.1 }}
                 className="relative group"
               >
-                {/* Node circle */}
                 <div className="absolute -left-[31px] sm:-left-[47px] top-1.5 w-4 h-4 rounded-full bg-[#08090d] border-2 border-[#00e5ff] group-hover:scale-125 group-hover:bg-[#00e5ff] transition-all" />
 
                 <div className="p-6 rounded-2xl bg-[#0f121e] border border-white/10 hover:border-cyan-500/40 transition-all max-w-2xl">
@@ -211,18 +254,31 @@ export default function About() {
           </div>
         </section>
 
-        {/* Bottom CTA */}
-        <div className="text-center pt-8">
-          <a
-            href="https://www.youtube.com/@TechBossTamil"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Button variant="primary" size="lg" icon={YoutubeIcon}>
-              SUBSCRIBE ON YOUTUBE
-            </Button>
-          </a>
-        </div>
+        {/* ==================================================
+            5. THE FUTURE
+           ================================================== */}
+        <section className="p-8 sm:p-12 rounded-3xl bg-gradient-to-br from-[#121626] to-[#08090f] border border-cyan-500/30 text-center space-y-6">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/30 text-xs font-tech text-[#00e5ff] uppercase tracking-wider">
+            <Rocket className="w-3.5 h-3.5" /> 05 • THE FUTURE
+          </div>
+          <h3 className="text-3xl sm:text-4xl font-black font-display text-white tracking-tight">
+            TOWARDS A CONNECTED DIGITAL TAMIL ECOSYSTEM
+          </h3>
+          <p className="text-sm text-slate-300 font-sans max-w-2xl mx-auto leading-relaxed">
+            Our goal is continuous innovation in tech journalism: interactive comparison tools, live community Q&As, benchmark databases, and fostering a generation of tech-literate builders across Tamil Nadu.
+          </p>
+          <div className="pt-2">
+            <a
+              href="https://www.youtube.com/@TechBossTamil"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <Button variant="primary" size="lg" icon={YoutubeIcon}>
+                SUBSCRIBE ON YOUTUBE
+              </Button>
+            </a>
+          </div>
+        </section>
       </div>
     </div>
   );

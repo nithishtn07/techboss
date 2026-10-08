@@ -74,10 +74,10 @@ export default function Footer() {
               </span>
             </Link>
 
-            <p className="text-sm text-slate-300 font-sans leading-relaxed">
-              Technology. Explained in Tamil.
+            <p className="text-sm text-cyan-300 font-tech font-bold">
+              Tamil Tech • AI • Gadgets • Future
             </p>
-            <p className="text-xs text-slate-500 font-sans leading-relaxed max-w-sm">
+            <p className="text-xs text-slate-400 font-sans leading-relaxed max-w-sm">
               Simplifying smartphones, processors, generative AI, and futuristic gadgets for Tamil-speaking tech enthusiasts globally.
             </p>
 
@@ -104,7 +104,7 @@ export default function Footer() {
           {/* Col 2: Navigation Links (3 cols) */}
           <div className="lg:col-span-3 space-y-4">
             <h4 className="text-xs font-tech font-bold uppercase tracking-wider text-white">
-              EXPLORE PLATFORM
+              NAVIGATION
             </h4>
             <ul className="space-y-2.5 text-xs font-tech">
               {navLinks.map((link) => (
@@ -118,10 +118,19 @@ export default function Footer() {
                   </Link>
                 </li>
               ))}
+              <li>
+                <Link
+                  to="/creator-dashboard"
+                  className="hover:text-cyan-400 transition-colors flex items-center gap-2 text-slate-500 hover:text-slate-300"
+                >
+                  <span className="w-1.5 h-1.5 rounded-full bg-slate-600" />
+                  <span>Creator Dashboard</span>
+                </Link>
+              </li>
             </ul>
           </div>
 
-          {/* Col 3: Categories & Editorial (2 cols) */}
+          {/* Col 3: Popular Hubs (2 cols) */}
           <div className="lg:col-span-2 space-y-4">
             <h4 className="text-xs font-tech font-bold uppercase tracking-wider text-white">
               POPULAR HUBS
@@ -139,17 +148,17 @@ export default function Footer() {
               </li>
               <li>
                 <Link to="/tech-hub" className="hover:text-cyan-400 transition-colors">
-                  Free AI Tools
+                  Curated AI Tools
                 </Link>
               </li>
               <li>
                 <Link to="/community" className="hover:text-cyan-400 transition-colors">
-                  Fan Q&A Feed
+                  Community Q&A
                 </Link>
               </li>
               <li>
                 <Link to="/about" className="hover:text-cyan-400 transition-colors">
-                  Creator Story
+                  Creator Chronicle
                 </Link>
               </li>
             </ul>
@@ -158,7 +167,7 @@ export default function Footer() {
           {/* Col 4: Newsletter Mini UI (3 cols) */}
           <div className="lg:col-span-3 space-y-3">
             <h4 className="text-xs font-tech font-bold uppercase tracking-wider text-white">
-              TECH DISPATCH
+              WEEKLY DISPATCH
             </h4>
             <p className="text-xs text-slate-400">
               Get our weekly breakdown of smartphones and AI developments in Tamil.
@@ -167,7 +176,7 @@ export default function Footer() {
             {subscribed ? (
               <div className="p-3 rounded-xl bg-cyan-950/40 border border-cyan-500/30 text-xs text-cyan-300 flex items-center gap-2">
                 <CheckCircle2 className="w-4 h-4 text-[#00e5ff] shrink-0" />
-                <span>Subscribed! Check your inbox soon.</span>
+                <span>Subscribed! Saved to database.</span>
               </div>
             ) : (
               <form onSubmit={handleMiniSubscribe} className="space-y-2">
@@ -178,18 +187,20 @@ export default function Footer() {
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     required
-                    className="w-full bg-[#121625] border border-white/15 focus:border-[#00e5ff] rounded-xl px-3.5 py-2 text-xs text-white placeholder-slate-500 outline-none pr-10 transition-colors"
+                    disabled={loading}
+                    className="w-full bg-[#121625] border border-white/15 focus:border-[#00e5ff] rounded-xl px-3.5 py-2 text-xs text-white placeholder-slate-500 outline-none pr-10 transition-colors disabled:opacity-50"
                   />
                   <button
                     type="submit"
-                    className="absolute right-1 top-1 bottom-1 px-2.5 rounded-lg bg-[#00e5ff] hover:bg-[#38bdf8] text-black flex items-center justify-center transition-colors"
-                    aria-label="Subscribe"
+                    disabled={loading}
+                    className="absolute right-1 top-1 bottom-1 px-2.5 rounded-lg bg-[#00e5ff] hover:bg-[#38bdf8] text-black flex items-center justify-center transition-colors cursor-pointer"
+                    aria-label="Subscribe to newsletter"
                   >
                     <ArrowRight className="w-3.5 h-3.5" />
                   </button>
                 </div>
                 <span className="text-[10px] font-mono text-slate-500 block">
-                  Frontend demonstration form • No spam
+                  PostgreSQL persistent dispatch • Zero spam
                 </span>
               </form>
             )}
@@ -199,12 +210,12 @@ export default function Footer() {
         {/* Bottom Bar: Copyright & Attribution */}
         <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs font-tech text-slate-500">
           <div className="flex items-center gap-2">
-            <span>© {new Date().getFullYear()} TECH BOSS MEDIA. All rights reserved.</span>
+            <span>© 2026 Tech Boss</span>
           </div>
           <div className="flex items-center gap-4 text-[11px] font-mono">
-            <span>Built with React + Vite + Three.js</span>
+            <span>Tamil Tech Media Platform</span>
             <span>•</span>
-            <span className="text-[#00e5ff]">100% Tamil Tech Media</span>
+            <span className="text-[#00e5ff]">Render • Neon PostgreSQL • Vercel</span>
           </div>
         </div>
       </div>

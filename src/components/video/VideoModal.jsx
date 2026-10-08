@@ -94,10 +94,10 @@ export default function VideoModal({ video, isOpen, onClose }) {
 
             <div className="flex flex-wrap items-center gap-4 text-xs font-tech text-slate-400 pt-2 border-t border-white/5">
               <span className="flex items-center gap-1.5 text-cyan-400">
-                <Eye className="w-3.5 h-3.5" /> {video.views} views
+                <Clock className="w-3.5 h-3.5" /> {video.duration}
               </span>
-              <span className="flex items-center gap-1.5">
-                <Clock className="w-3.5 h-3.5" /> {video.duration} duration
+              <span className="font-mono text-slate-300">
+                {video.quality || "4K UHD"}
               </span>
               <span className="flex items-center gap-1.5">
                 <Calendar className="w-3.5 h-3.5" /> {video.date}
