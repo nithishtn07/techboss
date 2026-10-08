@@ -1,0 +1,72 @@
+import React from 'react';
+import { motion } from 'framer-motion';
+import { Play, Eye, Clock, Calendar } from 'lucide-react';
+
+export default function VideoCard({ video, onSelect }) {
+  const handleClick = (e) => {
+    if (onSelect) {
+      e.preventDefault();
+      onSelect(video);
+    }
+  };
+
+  return (
+    <motion.div
+      whileHover={{ y: -6 }}
+      transition={{ duration: 0.25, ease: 'easeOut' }}
+      className="group relative flex flex-col rounded-2xl bg-[#0e111b] border border-white/10 hover:border-cyan-500/40 shadow-lg hover:shadow-[0_10px_30px_rgba(0,229,255,0.12)] overflow-hidden cursor-pointer"
+      onClick={handleClick}
+    >
+      {/* Thumbnail Container */}
+      <div className="relative aspect-video w-full overflow-hidden bg-slate-900">
+        <img
+          src={video.thumbnail}
+          alt={video.title}
+          loading="lazy"
+          className="w-full h-full object-cover transition-transform duration-500 ease-out group-hover:scale-105"
+        />
+
+        {/* Gradient Overlay */}
+        <div className="absolute inset-0 bg-gradient-to-t from-[#0e111b] via-black/20 to-transparent opacity-80 group-hover:opacity-60 transition-opacity" />
+
+        {/* Animated Play Button */}
+        <div className="absolute inset-0 flex items-center justify-center">
+          <div className="w-12 h-12 rounded-full bg-black/60 border border-white/20 text-white flex items-center justify-center backdrop-blur-md transition-all duration-300 group-hover:scale-115 group-hover:bg-red-600 group-hover:border-red-500 group-hover:shadow-[0_0_20px_rgba(239,68,68,0.6)]">
+            <Play className="w-5 h-5 fill-current ml-0.5" />
+          </div>
+        </div>
+
+        {/* Category Pill (Top Left) */}
+        <div className="absolute top-3 left-3 px-2.5 py-1 rounded-md bg-black/70 border border-white/10 text-[10px] font-tech font-bold uppercase tracking-wider text-[#00e5ff] backdrop-blur-md">
+          {video.category}
+        </div>
+
+        {/* Duration (Bottom Right) */}
+        <div className="absolute bottom-3 right-3 px-2 py-0.5 rounded bg-black/85 text-[11px] font-mono font-medium text-white border border-white/10">
+          {video.duration}
+        </div>
+      </div>
+
+      {/* Card Details */}
+      <div className="flex flex-col flex-1 p-5">
+        <h3 className="text-base sm:text-lg font-bold font-display text-white line-clamp-2 group-hover:text-[#00e5ff] transition-colors leading-snug">
+          {video.title}
+        </h3>
+
+        <p className="mt-2 text-xs text-slate-400 line-clamp-2 font-sans leading-relaxed">
+          {video.description}
+        </p>
+
+        {/* Meta Stats Footer */}
+        <div className="mt-auto pt-4 flex items-center justify-between text-xs font-tech text-slate-400 border-t border-white/5">
+          <span className="flex items-center gap-1.5 text-cyan-400/90 font-medium">
+            <Eye className="w-3.5 h-3.5" /> {video.views}
+          </span>
+          <span className="flex items-center gap-1 text-slate-400">
+            <Calendar className="w-3.5 h-3.5" /> {video.date}
+          </span>
+        </div>
+      </div>
+    </motion.div>
+  );
+}

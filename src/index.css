@@ -1,0 +1,115 @@
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    --bg-primary: #07080c;
+    --bg-secondary: #0d0f16;
+    --bg-card: #121520;
+    --bg-card-hover: #171b29;
+    --accent-cyan: #00e5ff;
+    --accent-blue: #3b82f6;
+    --accent-purple: #8b5cf6;
+    --text-primary: #f8fafc;
+    --text-muted: #94a3b8;
+    --border-subtle: rgba(255, 255, 255, 0.08);
+    --border-glow: rgba(0, 229, 255, 0.3);
+  }
+
+  * {
+    border-color: var(--border-subtle);
+  }
+
+  body {
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    overflow-x: hidden;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Outfit', 'Inter', sans-serif;
+    letter-spacing: -0.025em;
+  }
+}
+
+/* Custom Typography & Utility Classes */
+.font-display {
+  font-family: 'Outfit', sans-serif;
+}
+
+.font-tech {
+  font-family: 'Space Grotesk', monospace;
+}
+
+/* Background Grids & Patterns */
+.tech-grid-pattern {
+  background-image: radial-gradient(rgba(255, 255, 255, 0.07) 1px, transparent 1px);
+  background-size: 28px 28px;
+}
+
+.tech-grid-lines {
+  background-size: 40px 40px;
+  background-image: 
+    linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+}
+
+.glow-cyan-sm {
+  box-shadow: 0 0 15px rgba(0, 229, 255, 0.15);
+}
+
+.glow-cyan-md {
+  box-shadow: 0 0 30px rgba(0, 229, 255, 0.25);
+}
+
+.glow-purple-sm {
+  box-shadow: 0 0 20px rgba(139, 92, 246, 0.2);
+}
+
+.text-gradient-cyan {
+  background: linear-gradient(135deg, #ffffff 30%, #00e5ff 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.text-gradient-subtle {
+  background: linear-gradient(180deg, #ffffff 0%, #94a3b8 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.card-glass {
+  background: rgba(18, 21, 32, 0.65);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.07);
+}
+
+.card-glass:hover {
+  border-color: rgba(0, 229, 255, 0.25);
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 7px;
+  height: 7px;
+}
+
+::-webkit-scrollbar-track {
+  background: #07080c;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #1e2433;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #00e5ff;
+}
+
+/* Smooth Focus Ring */
+button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-visible {
+  outline: 2px solid #00e5ff;
+  outline-offset: 2px;
+}
