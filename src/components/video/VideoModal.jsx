@@ -1,9 +1,11 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { X, ExternalLink, Play, Clock, Eye, Calendar } from 'lucide-react';
+import { X, ExternalLink, Play, Clock, Calendar, Tv } from 'lucide-react';
 import Button from '../ui/Button';
 
 export default function VideoModal({ video, isOpen, onClose }) {
+  const [embedInline, setEmbedInline] = useState(false);
+
   useEffect(() => {
     const handleKeyDown = (e) => {
       if (e.key === 'Escape') onClose();
@@ -11,6 +13,7 @@ export default function VideoModal({ video, isOpen, onClose }) {
     if (isOpen) {
       document.body.style.overflow = 'hidden';
       window.addEventListener('keydown', handleKeyDown);
+      setEmbedInline(false);
     } else {
       document.body.style.overflow = 'unset';
     }
@@ -21,6 +24,8 @@ export default function VideoModal({ video, isOpen, onClose }) {
   }, [isOpen, onClose]);
 
   if (!isOpen || !video) return null;
+
+  const targetUrl = video.youtubeUrl || "https://www.youtube.com/@TechBossTamil/videos";
 
   return (
     <AnimatePresence>
@@ -45,7 +50,7 @@ export default function VideoModal({ video, isOpen, onClose }) {
             </div>
             <button
               onClick={onClose}
-              className="p-1.5 rounded-lg text-slate-400 hover:text-white hover:bg-white/10 transition-colors"
+              className="p-1.5 rounded-lg text-slate-400 hover:text-white hover:bg-white/10 transition-colors cursor-pointer"
               aria-label="Close modal"
             >
               <X className="w-5 h-5" />
@@ -54,32 +59,66 @@ export default function VideoModal({ video, isOpen, onClose }) {
 
           {/* Media Player Area */}
           <div className="relative aspect-video w-full bg-black group overflow-hidden">
-            <img
-              src={video.thumbnail}
-              alt={video.title}
-              className="w-full h-full object-cover opacity-85 group-hover:scale-105 transition-transform duration-500"
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-[#0e111a] via-black/40 to-black/20" />
+            {embedInline && video.videoId ? (
+              <iframe
+                src={`https://www.youtube-nocookie.com/embed/${video.videoId}?autoplay=1&rel=0`}
+                title={video.title}
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowFullScreen
+                className="w-full h-full border-0"
+              />
+            ) : (
+              <>
+                <img
+                  src={video.thumbnail}
+                  alt={video.title}
+                  className="w-full h-full object-cover opacity-85 group-hover:scale-105 transition-transform duration-500"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#0e111a] via-black/40 to-black/20" />
 
-            {/* Play Button Overlay */}
-            <div className="absolute inset-0 flex flex-col items-center justify-center">
-              <a
-                href={video.youtubeUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-red-600/90 hover:bg-red-600 text-white flex items-center justify-center shadow-[0_0_30px_rgba(239,68,68,0.5)] transition-all duration-300 hover:scale-110 group-hover:shadow-[0_0_40px_rgba(239,68,68,0.7)]"
-              >
-                <Play className="w-8 h-8 fill-current ml-1" />
-              </a>
-              <span className="mt-3 text-xs font-tech uppercase text-white/90 bg-black/60 px-3 py-1 rounded-full border border-white/15 backdrop-blur-sm">
-                Click to watch on YouTube
-              </span>
-            </div>
+                {/* Play Button Overlay (opens YouTube in new tab) */}
+                <div className="absolute inset-0 flex flex-col items-center justify-center gap-3">
+                  <a
+                    href={targetUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-red-600/90 hover:bg-red-600 text-white flex items-center justify-center shadow-[0_0_30px_rgba(239,68,68,0.5)] transition-all duration-300 hover:scale-110 group-hover:shadow-[0_0_40px_rgba(239,68,68,0.7)]"
+                    title="Watch on YouTube"
+                  >
+                    <Play className="w-8 h-8 fill-current ml-1" />
+                  </a>
 
-            {/* Duration pill */}
-            <div className="absolute bottom-3 right-3 px-2 py-1 rounded bg-black/80 font-mono text-xs text-white border border-white/20">
-              {video.duration}
-            </div>
+                  <div className="flex items-center gap-2">
+                    <a
+                      href={targetUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-xs font-tech uppercase text-white/90 bg-black/70 hover:bg-black/90 px-3.5 py-1.5 rounded-full border border-white/20 backdrop-blur-sm transition-colors flex items-center gap-1.5"
+                    >
+                      <span>Watch on YouTube</span>
+                      <ExternalLink className="w-3 h-3 text-cyan-400" />
+                    </a>
+
+                    {video.videoId && (
+                      <button
+                        type="button"
+                        onClick={() => setEmbedInline(true)}
+                        className="text-xs font-tech uppercase text-cyan-300/90 bg-cyan-950/60 hover:bg-cyan-900/80 px-3.5 py-1.5 rounded-full border border-cyan-500/30 backdrop-blur-sm transition-colors flex items-center gap-1.5 cursor-pointer"
+                        title="Play in this modal"
+                      >
+                        <Tv className="w-3 h-3" />
+                        <span>Play Here</span>
+                      </button>
+                    )}
+                  </div>
+                </div>
+
+                {/* Duration pill */}
+                <div className="absolute bottom-3 right-3 px-2 py-1 rounded bg-black/80 font-mono text-xs text-white border border-white/20">
+                  {video.duration}
+                </div>
+              </>
+            )}
           </div>
 
           {/* Body Content */}
@@ -119,7 +158,7 @@ export default function VideoModal({ video, isOpen, onClose }) {
                   Close
                 </Button>
                 <a
-                  href={video.youtubeUrl}
+                  href={targetUrl}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="w-full sm:w-auto"

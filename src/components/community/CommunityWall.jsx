@@ -40,14 +40,14 @@ export default function CommunityWall({ refreshTrigger }) {
     setLoading(true);
     setError(null);
     try {
-      const res = await getQuestionsApi(30);
+      const res = await getQuestionsApi(50);
       if (res.success) {
         setQuestions(res.data);
       } else {
         setError(res.message || 'Unable to load community questions.');
       }
     } catch {
-      setError('Unable to load community questions.');
+      setError('Connection failure: Unable to reach Tech Boss backend service.');
     } finally {
       setLoading(false);
     }
@@ -94,12 +94,29 @@ export default function CommunityWall({ refreshTrigger }) {
         </div>
 
         <div className="flex items-center gap-3">
-          <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-emerald-500/10 border border-emerald-500/30 text-[10px] font-mono text-emerald-400">
+          <span
+            className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md text-[10px] font-mono ${
+              error
+                ? 'bg-red-500/10 border border-red-500/30 text-red-400'
+                : loading
+                ? 'bg-cyan-500/10 border border-cyan-500/30 text-cyan-400'
+                : 'bg-emerald-500/10 border border-emerald-500/30 text-emerald-400'
+            }`}
+          >
             <Database className="w-3 h-3" />
-            <span>PostgreSQL Live Sync</span>
+            <span>
+              {error ? 'PostgreSQL Offline' : loading ? 'Syncing...' : 'PostgreSQL Live Sync'}
+            </span>
           </span>
+
           <span className="text-xs font-mono text-slate-400 hidden sm:inline">
-            {filtered.length} Inquiries
+            {error ? (
+              <span className="text-red-400/90">Feed Unavailable</span>
+            ) : loading ? (
+              <span className="text-slate-500">Checking feed...</span>
+            ) : (
+              `${filtered.length} ${filtered.length === 1 ? 'Inquiry' : 'Inquiries'}`
+            )}
           </span>
         </div>
       </div>
@@ -117,15 +134,15 @@ export default function CommunityWall({ refreshTrigger }) {
         </div>
       )}
 
-      {/* Error State with [Try Again] */}
+      {/* Error State with [Try Again] - distinctly shows failure reason */}
       {!loading && error && (
         <div className="py-16 text-center flex flex-col items-center justify-center p-8 rounded-2xl bg-[#0e111a] border border-red-500/30">
           <AlertCircle className="w-8 h-8 text-red-400 mb-3" />
           <h4 className="text-base font-bold font-display text-white">
-            Unable to load community questions.
+            Community Feed Temporarily Unavailable
           </h4>
-          <p className="mt-1 text-xs text-slate-400 font-sans max-w-sm">
-            {error || 'Community services are temporarily unavailable. Please verify your connection.'}
+          <p className="mt-2 text-xs text-slate-300 font-sans max-w-md leading-relaxed">
+            {error}
           </p>
           <Button
             variant="outline"
@@ -133,7 +150,7 @@ export default function CommunityWall({ refreshTrigger }) {
             onClick={fetchQuestions}
             icon={RotateCcw}
             iconPosition="left"
-            className="mt-5"
+            className="mt-5 cursor-pointer"
           >
             Try Again
           </Button>
@@ -153,11 +170,11 @@ export default function CommunityWall({ refreshTrigger }) {
         </div>
       )}
 
-      {/* Loaded Questions Feed */}
+      {/* Loaded Questions Feed from PostgreSQL */}
       {!loading && !error && filtered.length > 0 && (
         <div className="space-y-4">
           {filtered.map((item) => {
-            const upvoteCount = (upvotes[item.id] || 0);
+            const upvoteCount = upvotes[item.id] || 0;
 
             return (
               <motion.div

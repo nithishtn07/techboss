@@ -36,38 +36,46 @@ app = FastAPI(
     lifespan=lifespan,
 )
 
-# CORS Configuration
-# Allowed origins for development & production (supports "*" or comma-separated domains)
-raw_origins = os.getenv(
-    "ALLOWED_ORIGINS",
-    "*",
+# -------------------------------------------------------------
+# 2. FASTAPI CORS CONFIGURATION
+# Production Vercel domain and development origins
+# -------------------------------------------------------------
+DEFAULT_ALLOWED_ORIGINS = [
+    "https://techboss-lilac.vercel.app",
+    "http://localhost:5173",
+    "http://127.0.0.1:5173",
+]
+
+raw_origins = os.getenv("ALLOWED_ORIGINS", "")
+origins_set = set(DEFAULT_ALLOWED_ORIGINS)
+
+if raw_origins:
+    for item in raw_origins.split(","):
+        cleaned = item.strip().strip("'\"").rstrip("/")
+        if cleaned:
+            origins_set.add(cleaned)
+
+allowed_origins = sorted(list(origins_set))
+logger.info(f"Active CORS allowed origins: {allowed_origins}")
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=allowed_origins,
+    allow_credentials=True,
+    allow_methods=["GET", "POST", "OPTIONS"],
+    allow_headers=["*"],
+    max_age=600,
 )
-if raw_origins.strip() == "*":
-    app.add_middleware(
-        CORSMiddleware,
-        allow_origins=["*"],
-        allow_credentials=False,
-        allow_methods=["GET", "POST", "OPTIONS"],
-        allow_headers=["*"],
-    )
-else:
-    allowed_origins = [origin.strip() for origin in raw_origins.split(",") if origin.strip()]
-    app.add_middleware(
-        CORSMiddleware,
-        allow_origins=allowed_origins,
-        allow_credentials=True,
-        allow_methods=["GET", "POST", "OPTIONS"],
-        allow_headers=["*"],
-    )
 
 
-# Friendly request validation error handler
+# Friendly request validation error handler (HTTP 422)
 @app.exception_handler(RequestValidationError)
 async def validation_exception_handler(request, exc: RequestValidationError):
     errors = exc.errors()
     first_error = errors[0] if errors else {}
     msg = first_error.get("msg", "Invalid submission data")
     field = " -> ".join(str(loc) for loc in first_error.get("loc", []))
+    logger.warning(f"Validation failure on {request.url.path}: {field}: {msg}")
     return JSONResponse(
         status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
         content={
@@ -147,7 +155,7 @@ def get_public_questions(limit: int = 20, db: Session = Depends(get_db)):
         logger.error(f"Database error while fetching questions: {err}")
         raise HTTPException(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
-            detail="Unable to load community questions right now.",
+            detail="Unable to load community questions right now due to a database error.",
         )
 
 
@@ -163,10 +171,10 @@ def get_platform_stats(db: Session = Depends(get_db)):
         }
     except SQLAlchemyError as err:
         logger.error(f"Database error while fetching stats: {err}")
-        return {
-            "total_questions": 0,
-            "total_subscribers": 0,
-        }
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail="Unable to load platform statistics from PostgreSQL.",
+        )
 
 
 @app.post(
@@ -187,7 +195,7 @@ def submit_question(payload: QuestionCreate, db: Session = Depends(get_db)):
         db.add(new_question)
         db.commit()
         db.refresh(new_question)
-        logger.info(f"Question stored successfully: ID={new_question.id} by {new_question.email}")
+        logger.info(f"Question stored successfully: ID={new_question.id} (Category={new_question.category})")
         return {
             "success": True,
             "message": "Question submitted successfully",
@@ -197,7 +205,7 @@ def submit_question(payload: QuestionCreate, db: Session = Depends(get_db)):
         logger.error(f"Database error while saving question: {err}")
         raise HTTPException(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
-            detail="Unable to save question due to a server error. Please try again later.",
+            detail="Unable to save question due to a database error. Please try again later.",
         )
 
 
@@ -228,7 +236,7 @@ def subscribe_newsletter(payload: NewsletterCreate, db: Session = Depends(get_db
         db.add(new_subscriber)
         db.commit()
         db.refresh(new_subscriber)
-        logger.info(f"Newsletter subscriber added: {normalized_email}")
+        logger.info(f"Newsletter subscriber added successfully: ID={new_subscriber.id}")
         return {
             "success": True,
             "message": "Subscribed to newsletter successfully",
@@ -244,5 +252,5 @@ def subscribe_newsletter(payload: NewsletterCreate, db: Session = Depends(get_db
         logger.error(f"Database error while subscribing email: {err}")
         raise HTTPException(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
-            detail="Unable to process subscription due to a server error. Please try again later.",
+            detail="Unable to process subscription due to a database error. Please try again later.",
         )

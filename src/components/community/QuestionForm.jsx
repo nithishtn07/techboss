@@ -19,16 +19,18 @@ export default function QuestionForm({ onQuestionAdded }) {
 
   const validate = () => {
     const errs = {};
-    if (!formData.name.trim()) errs.name = 'Please enter your name.';
+    if (!formData.name.trim()) {
+      errs.name = 'Please enter your name.';
+    }
     if (!formData.email.trim()) {
       errs.email = 'Please enter your email.';
-    } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
+    } else if (!/\S+@\S+\.\S+/.test(formData.email.trim())) {
       errs.email = 'Please enter a valid email address.';
     }
     if (!formData.question.trim()) {
       errs.question = 'Please type your tech question.';
-    } else if (formData.question.trim().length < 15) {
-      errs.question = 'Question should be at least 15 characters long.';
+    } else if (formData.question.trim().length < 5) {
+      errs.question = 'Question should be at least 5 characters long.';
     }
     setErrors(errs);
     return Object.keys(errs).length === 0;
@@ -45,37 +47,29 @@ export default function QuestionForm({ onQuestionAdded }) {
       // Real API request to FastAPI POST /api/questions
       const res = await submitQuestionApi({
         name: formData.name.trim(),
-        email: formData.email.trim(),
+        email: formData.email.trim().toLowerCase(),
         category: formData.category,
         question: formData.question.trim(),
       });
 
       if (res.success) {
         setIsSubmitted(true);
-        if (onQuestionAdded) {
-          onQuestionAdded({
-            id: `q-user-${Date.now()}`,
-            author: formData.name.trim(),
-            city: 'Tamil Nadu',
-            avatar: 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=150&q=80',
-            question: formData.question.trim(),
-            category: formData.category,
-            upvotes: 1,
-            replies: 0,
-            timeAgo: 'Just now',
-            answeredByTechBoss: false,
-          });
-        }
-        // Clear the form data upon success
+        // Clear the form data ONLY after backend confirms successful persistence
         setFormData({ name: '', email: '', category: 'Smartphones', question: '' });
+        setErrors({});
+
+        // Trigger real live feed re-fetch from PostgreSQL
+        if (onQuestionAdded) {
+          onQuestionAdded();
+        }
       } else {
-        // Keep entered data, show friendly error message
+        // Keep entered data, show specific error
         setServerError(
           res.message || 'Unable to submit your question. Please check your details and try again.'
         );
       }
     } catch {
-      setServerError('Server is temporarily unreachable. Please check your connection and try again.');
+      setServerError('Unable to connect to backend server. Please check your connection and try again.');
     } finally {
       setLoading(false);
     }
@@ -119,16 +113,16 @@ export default function QuestionForm({ onQuestionAdded }) {
               Thanks! Your question has been received.
             </h4>
             <p className="mt-2 text-xs text-slate-300 max-w-sm">
-              Your question has been securely stored in the Tech Boss database and added to the community queue.
+              Your question has been securely stored in PostgreSQL and added to the live community feed.
             </p>
             <p className="mt-4 text-[11px] font-mono text-cyan-400/90 bg-cyan-950/40 px-3 py-1.5 rounded-lg border border-cyan-500/20">
-              ✓ Stored in PostgreSQL database: /api/questions
+              ✓ Persisted in PostgreSQL database
             </p>
             <Button
               variant="outline"
               size="sm"
               onClick={handleReset}
-              className="mt-6"
+              className="mt-6 cursor-pointer"
             >
               Ask Another Question
             </Button>
@@ -243,7 +237,7 @@ export default function QuestionForm({ onQuestionAdded }) {
                 disabled={loading}
                 icon={loading ? Loader2 : Send}
                 iconPosition="right"
-                className="w-full sm:w-auto"
+                className="w-full sm:w-auto cursor-pointer"
               >
                 {loading ? 'SUBMITTING...' : 'SUBMIT QUESTION'}
               </Button>

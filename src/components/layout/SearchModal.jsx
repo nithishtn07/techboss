@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Search, X, Play, Smartphone, BookOpen } from 'lucide-react';
+import { Search, X, Play, Smartphone, BookOpen, ExternalLink } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { VIDEOS_DATA } from '../../data/videos';
 import { GADGETS_DATA } from '../../data/gadgets';
@@ -167,10 +167,27 @@ export default function SearchModal({ isOpen, onClose, onSelectVideo }) {
                               <span>{vid.category}</span>
                               <span>•</span>
                               <span>{vid.duration}</span>
-                              <span>•</span>
-                              <span>{vid.views} views</span>
+                              {vid.date && (
+                                <>
+                                  <span>•</span>
+                                  <span>{vid.date}</span>
+                                </>
+                              )}
                             </div>
                           </div>
+                          <a
+                            href={vid.youtubeUrl || "https://www.youtube.com/@TechBossTamil/videos"}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              onClose();
+                            }}
+                            className="p-1.5 rounded-lg text-slate-400 hover:text-cyan-400 hover:bg-white/10 shrink-0 transition-colors"
+                            title="Watch directly on YouTube"
+                          >
+                            <ExternalLink className="w-4 h-4" />
+                          </a>
                         </div>
                       ))}
                     </div>

@@ -1,8 +1,8 @@
 import React, { useState, useMemo } from 'react';
-import { Search, ArrowUpDown, Play, RefreshCw, Sparkles } from 'lucide-react';
+import { Search, ArrowUpDown, Play, RefreshCw, Sparkles, ExternalLink } from 'lucide-react';
 import VideoCard from '../components/video/VideoCard';
 import Button from '../components/ui/Button';
-import { VIDEOS_DATA, VIDEO_CATEGORIES } from '../data/videos';
+import { VIDEOS_DATA, VIDEO_CATEGORIES, OFFICIAL_VIDEOS_URL } from '../data/videos';
 
 export default function Videos({ onSelectVideo }) {
   const [selectedCategory, setSelectedCategory] = useState('All');
@@ -71,6 +71,17 @@ export default function Videos({ onSelectVideo }) {
           <p className="text-sm sm:text-base text-slate-300 font-sans">
             Smartphones, laptops, local AI and future silicon — tested rigorously and explained in straightforward Tamil.
           </p>
+          <div className="pt-2">
+            <a
+              href={OFFICIAL_VIDEOS_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-red-600/15 hover:bg-red-600/25 border border-red-500/40 text-xs font-tech font-bold text-red-300 hover:text-white transition-all shadow-sm"
+            >
+              <span>Visit Official Tech Boss Channel on YouTube</span>
+              <ExternalLink className="w-3.5 h-3.5" />
+            </a>
+          </div>
         </div>
 
         {/* Filter Controls Strip */}

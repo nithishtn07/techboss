@@ -1,10 +1,12 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Play, Eye, Calendar, ExternalLink } from 'lucide-react';
+import { Play, ExternalLink } from 'lucide-react';
 import Button from '../ui/Button';
 
 export default function FeaturedVideo({ video, onSelect }) {
   if (!video) return null;
+
+  const targetUrl = video.youtubeUrl || "https://www.youtube.com/@TechBossTamil/videos";
 
   return (
     <section className="relative w-full py-12">
@@ -35,9 +37,12 @@ export default function FeaturedVideo({ video, onSelect }) {
         >
           <div className="grid grid-cols-1 lg:grid-cols-12 items-center">
             {/* Visual & Video Thumbnail (7 Cols) */}
-            <div
-              className="lg:col-span-7 relative aspect-video w-full overflow-hidden cursor-pointer"
-              onClick={() => onSelect(video)}
+            <a
+              href={targetUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="lg:col-span-7 relative aspect-video w-full overflow-hidden block cursor-pointer"
+              title={`Watch "${video.title}" on YouTube`}
             >
               <img
                 src={video.thumbnail}
@@ -68,7 +73,7 @@ export default function FeaturedVideo({ video, onSelect }) {
               <div className="absolute bottom-4 right-4 px-2.5 py-1 rounded bg-black/90 border border-white/20 text-xs font-mono text-white">
                 {video.duration}
               </div>
-            </div>
+            </a>
 
             {/* Content Sidebar (5 Cols) */}
             <div className="lg:col-span-5 p-6 sm:p-8 lg:p-10 flex flex-col justify-center space-y-5">
@@ -84,28 +89,37 @@ export default function FeaturedVideo({ video, onSelect }) {
                 <span>{video.date}</span>
               </div>
 
-              <h3
-                onClick={() => onSelect(video)}
-                className="text-xl sm:text-2xl lg:text-3xl font-extrabold font-display text-white group-hover:text-[#00e5ff] transition-colors leading-tight cursor-pointer"
+              <a
+                href={targetUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="block group-hover:text-[#00e5ff] transition-colors"
               >
-                {video.title}
-              </h3>
+                <h3 className="text-xl sm:text-2xl lg:text-3xl font-extrabold font-display text-white leading-tight">
+                  {video.title}
+                </h3>
+              </a>
 
               <p className="text-sm text-slate-300 leading-relaxed font-sans">
                 {video.description}
               </p>
 
               <div className="pt-3 flex flex-wrap items-center gap-3.5">
-                <Button
-                  variant="primary"
-                  size="md"
-                  icon={Play}
-                  onClick={() => onSelect(video)}
-                >
-                  WATCH VIDEO
-                </Button>
                 <a
-                  href={video.youtubeUrl}
+                  href={targetUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <Button
+                    variant="primary"
+                    size="md"
+                    icon={Play}
+                  >
+                    WATCH VIDEO
+                  </Button>
+                </a>
+                <a
+                  href={targetUrl}
                   target="_blank"
                   rel="noopener noreferrer"
                 >
@@ -115,9 +129,19 @@ export default function FeaturedVideo({ video, onSelect }) {
                     icon={ExternalLink}
                     iconPosition="right"
                   >
-                    YouTube
+                    Watch on YouTube
                   </Button>
                 </a>
+                {onSelect && (
+                  <Button
+                    variant="ghost"
+                    size="md"
+                    onClick={() => onSelect(video)}
+                    title="View video details modal"
+                  >
+                    Quick Details
+                  </Button>
+                )}
               </div>
             </div>
           </div>

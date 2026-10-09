@@ -7,12 +7,21 @@ export default function StatsCounter() {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: '-50px' });
   const [dbStats, setDbStats] = useState({ total_questions: 0, total_subscribers: 0 });
+  const [isStatsLive, setIsStatsLive] = useState(false);
 
   useEffect(() => {
     let mounted = true;
     getStatsApi().then((res) => {
-      if (mounted && res.success) {
-        setDbStats(res.data);
+      if (mounted) {
+        if (res.success && res.data) {
+          setDbStats({
+            total_questions: Number(res.data.total_questions) || 0,
+            total_subscribers: Number(res.data.total_subscribers) || 0,
+          });
+          setIsStatsLive(true);
+        } else {
+          setIsStatsLive(false);
+        }
       }
     });
     return () => {
@@ -22,18 +31,18 @@ export default function StatsCounter() {
 
   const pillars = [
     {
-      targetNumber: dbStats.total_questions || 8,
-      suffix: '+',
+      targetNumber: dbStats.total_questions,
+      suffix: isStatsLive && dbStats.total_questions > 0 ? '+' : '',
       label: 'COMMUNITY INQUIRIES',
-      sub: 'Verified Questions in PostgreSQL',
+      sub: isStatsLive ? 'Verified Questions in PostgreSQL' : 'PostgreSQL Live Sync',
       accent: '#00e5ff',
       icon: MessageSquare,
     },
     {
-      targetNumber: dbStats.total_subscribers || 7,
-      suffix: '+',
+      targetNumber: dbStats.total_subscribers,
+      suffix: isStatsLive && dbStats.total_subscribers > 0 ? '+' : '',
       label: 'DISPATCH SUBSCRIBERS',
-      sub: 'Weekly Tamil Tech Readers',
+      sub: isStatsLive ? 'Weekly Tamil Tech Readers' : 'PostgreSQL Live Sync',
       accent: '#38bdf8',
       icon: Database,
     },
@@ -83,12 +92,14 @@ export default function StatsCounter() {
                     isInView={isInView}
                     duration={1800}
                   />
-                  <span
-                    className="text-2xl sm:text-4xl lg:text-5xl font-black font-display tracking-tight"
-                    style={{ color: item.accent }}
-                  >
-                    {item.suffix}
-                  </span>
+                  {item.suffix && (
+                    <span
+                      className="text-2xl sm:text-4xl lg:text-5xl font-black font-display tracking-tight"
+                      style={{ color: item.accent }}
+                    >
+                      {item.suffix}
+                    </span>
+                  )}
                 </div>
 
                 <h3 className="mt-2 text-xs sm:text-sm font-tech font-bold text-white tracking-wider uppercase">
@@ -110,10 +121,9 @@ function CounterNumber({ target, isInView, duration = 1800 }) {
   const [count, setCount] = useState(0);
 
   useEffect(() => {
-    if (!isInView || target === undefined) return;
+    if (!isInView || target === undefined || target === null) return;
 
-    let start = 0;
-    const end = target;
+    const end = Number(target) || 0;
     if (end === 0) {
       setCount(0);
       return;
